@@ -2,7 +2,10 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import { Dex } from './tools/sim';
+
 function App() {
+  console.log(Dex);
   return (
     <div className="App">
       <header className="App-header">
