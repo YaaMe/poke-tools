@@ -1,6 +1,7 @@
 @use "sass:map";
+// @import "../node_modules/bootstrap/scss/bootstrap";
 
-$type-colors: (
+$theme-colors: (
   "bug": #AABB22,
   "dark": #775544,
   "dragon": #7766EE,
@@ -21,12 +22,16 @@ $type-colors: (
   "water": #3399FF,
 );
 
-@mixin btn_type($type) {
-    background-color: map.get($type-colors, $type)
+$prefixes: "btn", "badge", "progress", "bg", "list-group-item";
+
+@mixin type_css($type) {
+    background-color: map.get($theme-colors, $type)
 }
 
-@each $type, $_ in $type-colors {
-    .btn-#{$type} {
-        @include btn_type($type)
+@each $type, $_ in $theme-colors {
+    @each $prefix in $prefixes {
+        .#{$prefix}-#{$type} {
+            @include type_css($type)
+        }
     }
 }
