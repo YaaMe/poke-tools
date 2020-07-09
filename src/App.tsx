@@ -12,11 +12,6 @@ import { BattlePokedex } from './tools/data/pokedex';
 import { findDex } from './tools/dex';
 import Cramo from './containers/Cramo';
 
-/* <Button variant="bug">test button</Button>
- * <Badge variant="bug">test badge</Badge>
- * <ProgressBar striped variant="success" now={50}/>
- * <ProgressBar striped variant="dragon" now={50}/>
- * <ProgressBar variant="ice" now={50}/> */
 function App() {
   const target = 'blastoise';
   // console.log(BattlePokedex[target])
