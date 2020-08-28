@@ -58,31 +58,34 @@ const renderItem = (item, onSelect, i) => {
 };
 
 const SelectRecipe = ({onSelect}) => {
+  const [{target}, setTarget] = useState({target: ''});
+  const onChange = e => {
+    setTarget({target: e.target.value})
+  }
+  let filterRecipes = recipes;
+  if (target) {
+    filterRecipes = recipes.filter(recipe => JSON.stringify(recipe).includes(target))
+  }
   return (
     <Container>
       <Row>
-        <Col md={md}>
-          table
-        </Col>
       </Row>
       <Row>
         <Col md={md}>
-          {/* <InputGroup className="mb-3">
-              <FormControl
-              placeholder="Recipient's username"
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
-              />
-              <InputGroup.Append>
-              <Button variant="outline-secondary">Search</Button>
-              </InputGroup.Append>
-              </InputGroup> */}
+          <InputGroup className="mb-3">
+            <FormControl
+              controlid="item"
+              placeholder="search item name"
+              onChange={onChange}
+            >
+            </FormControl>
+          </InputGroup>
         </Col>
       </Row>
       <Row>
         <Col md={md}>
           <ListGroup>
-            {recipes.map((recipe, i) => renderItem(recipe, onSelect, i))}
+            {filterRecipes.map((recipe, i) => renderItem(recipe, onSelect, i))}
           </ListGroup>
         </Col>
       </Row>

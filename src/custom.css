@@ -2,7 +2,39 @@
   background-color: #AABB22;
 }
 
+.badge-bug {
+  background-color: #AABB22;
+}
+
+.progress-bug {
+  background-color: #AABB22;
+}
+
+.bg-bug {
+  background-color: #AABB22;
+}
+
+.list-group-item-bug {
+  background-color: #AABB22;
+}
+
 .btn-dark {
+  background-color: #775544;
+}
+
+.badge-dark {
+  background-color: #775544;
+}
+
+.progress-dark {
+  background-color: #775544;
+}
+
+.bg-dark {
+  background-color: #775544;
+}
+
+.list-group-item-dark {
   background-color: #775544;
 }
 
@@ -10,7 +42,39 @@
   background-color: #7766EE;
 }
 
+.badge-dragon {
+  background-color: #7766EE;
+}
+
+.progress-dragon {
+  background-color: #7766EE;
+}
+
+.bg-dragon {
+  background-color: #7766EE;
+}
+
+.list-group-item-dragon {
+  background-color: #7766EE;
+}
+
 .btn-electric {
+  background-color: #FFCC33;
+}
+
+.badge-electric {
+  background-color: #FFCC33;
+}
+
+.progress-electric {
+  background-color: #FFCC33;
+}
+
+.bg-electric {
+  background-color: #FFCC33;
+}
+
+.list-group-item-electric {
   background-color: #FFCC33;
 }
 
@@ -18,7 +82,39 @@
   background-color: #FFAAFF;
 }
 
+.badge-fairy {
+  background-color: #FFAAFF;
+}
+
+.progress-fairy {
+  background-color: #FFAAFF;
+}
+
+.bg-fairy {
+  background-color: #FFAAFF;
+}
+
+.list-group-item-fairy {
+  background-color: #FFAAFF;
+}
+
 .btn-fighting {
+  background-color: #BB5544;
+}
+
+.badge-fighting {
+  background-color: #BB5544;
+}
+
+.progress-fighting {
+  background-color: #BB5544;
+}
+
+.bg-fighting {
+  background-color: #BB5544;
+}
+
+.list-group-item-fighting {
   background-color: #BB5544;
 }
 
@@ -26,7 +122,39 @@
   background-color: #FF4422;
 }
 
+.badge-fire {
+  background-color: #FF4422;
+}
+
+.progress-fire {
+  background-color: #FF4422;
+}
+
+.bg-fire {
+  background-color: #FF4422;
+}
+
+.list-group-item-fire {
+  background-color: #FF4422;
+}
+
 .btn-flying {
+  background-color: #6699FF;
+}
+
+.badge-flying {
+  background-color: #6699FF;
+}
+
+.progress-flying {
+  background-color: #6699FF;
+}
+
+.bg-flying {
+  background-color: #6699FF;
+}
+
+.list-group-item-flying {
   background-color: #6699FF;
 }
 
@@ -34,7 +162,39 @@
   background-color: #6666BB;
 }
 
+.badge-ghost {
+  background-color: #6666BB;
+}
+
+.progress-ghost {
+  background-color: #6666BB;
+}
+
+.bg-ghost {
+  background-color: #6666BB;
+}
+
+.list-group-item-ghost {
+  background-color: #6666BB;
+}
+
 .btn-grass {
+  background-color: #77CC55;
+}
+
+.badge-grass {
+  background-color: #77CC55;
+}
+
+.progress-grass {
+  background-color: #77CC55;
+}
+
+.bg-grass {
+  background-color: #77CC55;
+}
+
+.list-group-item-grass {
   background-color: #77CC55;
 }
 
@@ -42,7 +202,39 @@
   background-color: #DDBB55;
 }
 
+.badge-ground {
+  background-color: #DDBB55;
+}
+
+.progress-ground {
+  background-color: #DDBB55;
+}
+
+.bg-ground {
+  background-color: #DDBB55;
+}
+
+.list-group-item-ground {
+  background-color: #DDBB55;
+}
+
 .btn-ice {
+  background-color: #77DDFF;
+}
+
+.badge-ice {
+  background-color: #77DDFF;
+}
+
+.progress-ice {
+  background-color: #77DDFF;
+}
+
+.bg-ice {
+  background-color: #77DDFF;
+}
+
+.list-group-item-ice {
   background-color: #77DDFF;
 }
 
@@ -50,7 +242,39 @@
   background-color: #BBBBAA;
 }
 
+.badge-normal {
+  background-color: #BBBBAA;
+}
+
+.progress-normal {
+  background-color: #BBBBAA;
+}
+
+.bg-normal {
+  background-color: #BBBBAA;
+}
+
+.list-group-item-normal {
+  background-color: #BBBBAA;
+}
+
 .btn-poison {
+  background-color: #AA5599;
+}
+
+.badge-poison {
+  background-color: #AA5599;
+}
+
+.progress-poison {
+  background-color: #AA5599;
+}
+
+.bg-poison {
+  background-color: #AA5599;
+}
+
+.list-group-item-poison {
   background-color: #AA5599;
 }
 
@@ -58,7 +282,39 @@
   background-color: #FF5599;
 }
 
+.badge-psychic {
+  background-color: #FF5599;
+}
+
+.progress-psychic {
+  background-color: #FF5599;
+}
+
+.bg-psychic {
+  background-color: #FF5599;
+}
+
+.list-group-item-psychic {
+  background-color: #FF5599;
+}
+
 .btn-rock {
+  background-color: #BBAA66;
+}
+
+.badge-rock {
+  background-color: #BBAA66;
+}
+
+.progress-rock {
+  background-color: #BBAA66;
+}
+
+.bg-rock {
+  background-color: #BBAA66;
+}
+
+.list-group-item-rock {
   background-color: #BBAA66;
 }
 
@@ -66,7 +322,39 @@
   background-color: #AAAABB;
 }
 
+.badge-steel {
+  background-color: #AAAABB;
+}
+
+.progress-steel {
+  background-color: #AAAABB;
+}
+
+.bg-steel {
+  background-color: #AAAABB;
+}
+
+.list-group-item-steel {
+  background-color: #AAAABB;
+}
+
 .btn-water {
+  background-color: #3399FF;
+}
+
+.badge-water {
+  background-color: #3399FF;
+}
+
+.progress-water {
+  background-color: #3399FF;
+}
+
+.bg-water {
+  background-color: #3399FF;
+}
+
+.list-group-item-water {
   background-color: #3399FF;
 }
 
