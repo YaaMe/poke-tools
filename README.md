@@ -10,3 +10,9 @@
 
 + css design
 + mobile fit
+
+
+> gh-pages
+
+> + npm build
+> + move build/index.html => index.html
