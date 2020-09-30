@@ -8,6 +8,5 @@
 
 ###### Cramo
 
-+ algorithm
 + css design
 + mobile fit

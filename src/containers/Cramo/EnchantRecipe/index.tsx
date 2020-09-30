@@ -76,9 +76,20 @@ const EnchantRecipe = ({recipe = {}, onBack}) => {
   const onCancel = (target) => {
     setStack(stack.filter(recipe => recipe.uuid !== target.uuid));
   }
+  let point_set = new Set();
+  recipes_point.forEach((recipe) => point_set.add(recipe.point));
   let selectable_recipes = recipes_point.filter((recipe) => {
     if (stack.length == 0) {
       return recipe.type == type;
+    } else if (stack.length == 2) {
+      let check = false;
+      let assume = sum_point + recipe.point;
+      point_set.forEach(point => {
+        if (!check) {
+          check = point >= min - assume && point <= max - assume;
+        }
+      })
+      return check;
     } else if (stack.length == 3) {
       return recipe.point >= min - sum_point && recipe.point <= max - sum_point;
     } else if (stack.length >= 4) {
