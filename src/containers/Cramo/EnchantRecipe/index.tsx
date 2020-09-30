@@ -9,6 +9,7 @@ import {
   ProgressBar,
 } from 'react-bootstrap';
 import cram_point from 'tools/data/cram_point';
+import { packId } from 'tools/tricks';
 
 const md = {
   span: 4,
@@ -69,11 +70,11 @@ const EnchantRecipe = ({recipe = {}}) => {
   stack.forEach(({point}) => sum_point += point);
   const onSelect = (recipe) => {
     if (stack.length < 4) {
-      setStack([...stack, recipe]);
+      setStack([...stack, packId(recipe)]);
     }
   };
   const onCancel = (target) => {
-    setStack(stack.filter(recipe => recipe.name !== target.name));
+    setStack(stack.filter(recipe => recipe.uuid !== target.uuid));
   }
   let selectable_recipes = recipes_point.filter((recipe) => {
     if (stack.length == 0) {
