@@ -63,7 +63,7 @@ const renderRecipe = (item, onSelect, i) => {
 };
 
 
-const EnchantRecipe = ({recipe = {}}) => {
+const EnchantRecipe = ({recipe = {}, onBack}) => {
   const { type, hit_range: [min, max] } = recipe;
   let [stack, setStack] = useState([]);
   let sum_point = 0;
@@ -112,6 +112,11 @@ const EnchantRecipe = ({recipe = {}}) => {
           <ListGroup>
             {selectable_recipes.map((recipe, i) => renderRecipe(recipe, onSelect, i))}
           </ListGroup>
+        </Col>
+        <Col md={{
+          span: 4,
+        }}>
+          <Button onClick={onBack}>back</Button>
         </Col>
       </Row>
     </Container>

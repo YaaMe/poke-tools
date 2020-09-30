@@ -10,5 +10,4 @@
 
 + algorithm
 + css design
-+ page back
 + mobile fit

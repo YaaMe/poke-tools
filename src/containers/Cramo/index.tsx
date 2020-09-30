@@ -12,9 +12,9 @@ import {
 import SelectRecipe from './SelectRecipe';
 import EnchantRecipe from './EnchantRecipe';
 
-const renderContainer = ({page, target}, onSelect) => {
+const renderContainer = ({page, target}, onSelect, onBack) => {
   switch (page) {
-    case 'enchant': return <EnchantRecipe recipe={target}/>;
+    case 'enchant': return <EnchantRecipe recipe={target} onBack={onBack} />;
     default: return <SelectRecipe onSelect={onSelect}/>
   }
 }
@@ -31,9 +31,15 @@ const Cramo = () => {
       target: item,
     });
   };
+  const onBack = () => {
+    setState({
+      page: "",
+      target: {}
+    });
+  };
   return (
     <Fragment>
-      {renderContainer(state, onSelect)}
+      {renderContainer(state, onSelect, onBack)}
     </Fragment>
   );
 }
