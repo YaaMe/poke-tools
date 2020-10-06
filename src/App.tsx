@@ -8,18 +8,33 @@ import {
   ProgressBar,
   Badge
 } from 'react-bootstrap';
-import { BattlePokedex } from './tools/data/pokedex';
-import { findDex } from './tools/dex';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom';
+
+import Group from './containers/Group';
 import Cramo from './containers/Cramo';
 
 function App() {
-  const target = 'blastoise';
-  // console.log(BattlePokedex[target])
-  console.log(findDex(target));
   return (
-    <div className="App">
-      <Cramo/>
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/group">
+            <Group/>
+          </Route>
+          <Route path="/cramo">
+            <Cramo/>
+          </Route>
+          <Route path="/">
+            <Cramo/>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
