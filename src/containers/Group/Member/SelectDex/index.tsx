@@ -2,6 +2,8 @@ import React, {Fragment, useState} from 'react';
 import {
   ButtonGroup,
   Button,
+  InputGroup,
+  FormControl,
   Table
 } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
@@ -77,6 +79,7 @@ const SelectDex = () => {
   let list = getSwShDex();
   const [isAndLogic, setLogic] = useState(true);
   const [type_filter, setFilter] = useState([]);
+  const [search, setSearch] = useState('');
   const [sortInfo = [], setSortInfo] = useState([]);
   const [sortAttr = 'num', isAsc] = sortInfo;
   const markInfo = (attr) => setSortInfo([attr, sortAttr === attr ? !isAsc : true]);
@@ -90,23 +93,43 @@ const SelectDex = () => {
     }
   }
 
+  const onSearch = e => {
+    console.log(e.target.value);
+    setSearch(e.target.value);
+  }
+
+  console.log('render');
   // let num = dex.num;
   // console.log(getPokeIcon(toID(dex.name)))
-  if (type_filter.length) {
+  if (type_filter.length || search !== '') {
     list = list.filter(dex => {
-      let flag = false;
-      if (isAndLogic) {
-        if (type_filter.length > 2) return false;
-        if (type_filter.length === 2) {
-          return dex.types.includes(type_filter[0]) && dex.types.includes(type_filter[1]);
+      const filter_on_type = function(dex, type_filter) {
+        if (!type_filter.length) return true;
+        let flag = false;
+        if (isAndLogic) {
+          if (type_filter.length > 2) return false;
+          if (type_filter.length === 2) {
+            return dex.types.includes(type_filter[0]) && dex.types.includes(type_filter[1]);
+          }
         }
+        dex.types.forEach(type => {
+          if (type_filter.includes(type)) {
+            flag = true;
+          }
+        });
+        return flag;
       }
-      dex.types.forEach(type => {
-        if (type_filter.includes(type)) {
-          flag = true;
-        }
-      });
-      return flag;
+      const filter_on_search = function(dex, search) {
+        if(!search) return true;
+        return dex.name.toLowerCase().includes(search.toLowerCase())
+            || JSON.stringify(dex.abilities).toLowerCase().includes(search.toLowerCase())
+      }
+      let flag = filter_on_search(dex, search);
+      console.log(flag);
+      if (flag) {
+        flag = filter_on_type(dex, type_filter);
+      }
+      return flag
     })
   }
   list.sort((a, b) => {
@@ -121,6 +144,15 @@ const SelectDex = () => {
 
   return (
     <Fragment>
+      <div>
+        <InputGroup className="mb-3">
+          <FormControl
+            controlid="search"
+            placeholder="search pokemon name or abilities"
+            onChange={onSearch}
+          />
+        </InputGroup>
+      </div>
       <div style={{display: 'flex'}}>
         <Button variant="outline-primary"
                 onClick={e => setLogic(!isAndLogic)}
@@ -168,84 +200,84 @@ const SelectDex = () => {
       </div>
     </Fragment>
   )
-        }
-  // <BootstrapTable bootstrap4 keyField="name" data={list} columns={ columns }/>
-  /* const columns = [{
-   *   dataField: 'name',
-   *   text: 'name',
-   *   formatter: (name, row) => {
-   *     const id = toID(name)
-   *     return (
-   *       <div>
-   *         <span style={{
-   *           display: 'inline-block',
-   *           height: '30px',
-   *           width: '40px',
-   *           background: getPokeIcon(id)}}/><label>{name}</label>
-   *       </div>
-   *     )
-   *   }
-   * }, {
-   *   dataField: 'types',
-   *   text: 'types',
-   *   formatter: (types, row) => {
-   *     return (
-   *       <div>
-   *         {types.map(type => (<Type type={type}/>))}
-   *       </div>
-   *     )
-   *   },
-   *   headerEvents: {
-   *     onClick: (e, column, index) => {
-   * 
-   *     }
-   *   },
-   * }, {
-   *   dataField: 'abilities',
-   *   text: 'abilities',
-   *   formatter: (abilities, pokemon) => {
-   *     const x = abilities[0];// TODO 0 1 H S
-   *     const h = abilities.H;
-   *     return (<span>{x} {h}</span>)
-   *   },
-   *   headerEvents: {
-   *     onClick: (e, column, index) => {
-   *     }
-   *   },
-   * }, {
-   *   dataField: 'baseStats.hp',
-   *   text: 'HP',
-   *   sort: true,
-   * }, {
-   *   dataField: 'baseStats.atk',
-   *   text: 'Atk',
-   *   sort: true,
-   * }, {
-   *   dataField: 'baseStats.def',
-   *   text: 'Def',
-   *   sort: true,
-   * }, {
-   *   dataField: 'baseStats.spa',
-   *   text: 'SpA',
-   *   sort: true,
-   * }, {
-   *   dataField: 'baseStats.spd',
-   *   text: 'SpD',
-   *   sort: true,
-   * }, {
-   *   dataField: 'baseStats.spe',
-   *   text: 'Spe',
-   *   sort: true,
-   * }, {
-   *   dataField: 'baseStats',
-   *   text: 'BST',
-   *   sort: true,
-   *   sortFunc: (a, b, order, dataField) => {
-   *     return order === 'asc' ? bst(b) - bst(a) : bst(a) - bst(b);
-   *   },
-   *   formatter: (baseStats, row) => {
-   *     let { hp, atk, def, spa, spd, spe } = baseStats;
-   *     return <span>{hp + atk + def + spa + spd + spe}</span>
-   *   }
-   * }]; */
-  export default SelectDex;
+}
+// <BootstrapTable bootstrap4 keyField="name" data={list} columns={ columns }/>
+/* const columns = [{
+ *   dataField: 'name',
+ *   text: 'name',
+ *   formatter: (name, row) => {
+ *     const id = toID(name)
+ *     return (
+ *       <div>
+ *         <span style={{
+ *           display: 'inline-block',
+ *           height: '30px',
+ *           width: '40px',
+ *           background: getPokeIcon(id)}}/><label>{name}</label>
+ *       </div>
+ *     )
+ *   }
+ * }, {
+ *   dataField: 'types',
+ *   text: 'types',
+ *   formatter: (types, row) => {
+ *     return (
+ *       <div>
+ *         {types.map(type => (<Type type={type}/>))}
+ *       </div>
+ *     )
+ *   },
+ *   headerEvents: {
+ *     onClick: (e, column, index) => {
+ * 
+ *     }
+ *   },
+ * }, {
+ *   dataField: 'abilities',
+ *   text: 'abilities',
+ *   formatter: (abilities, pokemon) => {
+ *     const x = abilities[0];// TODO 0 1 H S
+ *     const h = abilities.H;
+ *     return (<span>{x} {h}</span>)
+ *   },
+ *   headerEvents: {
+ *     onClick: (e, column, index) => {
+ *     }
+ *   },
+ * }, {
+ *   dataField: 'baseStats.hp',
+ *   text: 'HP',
+ *   sort: true,
+ * }, {
+ *   dataField: 'baseStats.atk',
+ *   text: 'Atk',
+ *   sort: true,
+ * }, {
+ *   dataField: 'baseStats.def',
+ *   text: 'Def',
+ *   sort: true,
+ * }, {
+ *   dataField: 'baseStats.spa',
+ *   text: 'SpA',
+ *   sort: true,
+ * }, {
+ *   dataField: 'baseStats.spd',
+ *   text: 'SpD',
+ *   sort: true,
+ * }, {
+ *   dataField: 'baseStats.spe',
+ *   text: 'Spe',
+ *   sort: true,
+ * }, {
+ *   dataField: 'baseStats',
+ *   text: 'BST',
+ *   sort: true,
+ *   sortFunc: (a, b, order, dataField) => {
+ *     return order === 'asc' ? bst(b) - bst(a) : bst(a) - bst(b);
+ *   },
+ *   formatter: (baseStats, row) => {
+ *     let { hp, atk, def, spa, spd, spe } = baseStats;
+ *     return <span>{hp + atk + def + spa + spd + spe}</span>
+ *   }
+ * }]; */
+export default SelectDex;
