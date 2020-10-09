@@ -23,10 +23,10 @@ const Group = () => {
 
   const onSelect = m => setDex(m);
   return (
-    <Container>
-      <Row>
-        <Col md={{span: 1, offset: 0}}><PokemonRanking /></Col>
-        <Col md={{span: 10, offset: 0}}>
+    <Container fluid={true}>
+      <Row style={{paddingTop: 10}}>
+        <Col md={{span: 3, offset: 0}}><PokemonRanking /></Col>
+        <Col md={{span: 6, offset: 0}}>
           <Row>
             <Col>
               {members.map(member => mapMember(member, onSelect))}
@@ -38,7 +38,7 @@ const Group = () => {
             </Col>
           </Row>
         </Col>
-        <Col md={{span: 1, offset: 0}}>anlyz</Col>
+        <Col md={{span: 3, offset: 0}}>anlyz</Col>
       </Row>
     </Container>
   );

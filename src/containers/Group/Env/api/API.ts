@@ -3,8 +3,9 @@ import {FetchOptions, PokemonRankReqParam, SeasonListReqBody, TrainerRankReqPara
 import {SeasonListResponse} from './Responses';
 import {PokemonRankInfo, TrainerRankInfo} from "./Interfaces";
 
-const RESOURCE_BASE = process.env.REACT_APP_POKEHOME_RESOURCE_BASE ?? 'https://resource.pokemon-home.com/';
-const API_BASE = process.env.REACT_APP_POKEHOME_API_BASE ?? 'https://api.battle.pokemon-home.com/battledata'
+const LOCAL = 'http://localhost:5000/'
+const RESOURCE_BASE = process.env.REACT_APP_POKEHOME_RESOURCE_BASE ?? LOCAL + 'https://resource.pokemon-home.com/battledata';
+const API_BASE = process.env.REACT_APP_POKEHOME_API_BASE ?? LOCAL + 'https://api.battle.pokemon-home.com'
 
 export class PokemonHomeAPI {
     defaultHeaders = {
@@ -27,7 +28,7 @@ export class PokemonHomeAPI {
         if (!init) init = {};
         init.headers = { ...this.defaultHeaders, ...init.headers };
 
-        // if (!init.credentials) init.credentials = 'include';
+        if (!init.credentials) init.credentials = 'include';
 
         if (body) init.body = JSON.stringify(body);
 
@@ -36,7 +37,7 @@ export class PokemonHomeAPI {
         init.signal = controller.signal;
         this._abort = controller.abort.bind(controller);
 
-        return fetch(`${uri}`, init);
+        return fetch(uri, init);
     }
 
     async fetchAPI(uri: string, body?: any, init?: RequestInit & { dontThrowErrorOn4XX?: boolean }) {
@@ -86,13 +87,12 @@ export class PokemonHomeAPI {
         return this.fetchAPI(`cbd/competition/rankmatch/list`, rom, {
             dontThrowErrorOn4XX: true,
             headers: {
-                Host: 'api.battle.pokemon-home.com',
                 countrycode: '304', // Japan
                 langcode: '9', // zh-CN
                 Authorization: 'Bearer',
-                'X-Requested-With': 'jp.pokemon.pokemonhome',
-                'Sec-Fetch-Site': 'same-site',
-            }
+                Origin: 'https://resource.pokemon-home.com',
+            },
+            method: 'POST',
         })
     }
 

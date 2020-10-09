@@ -30,6 +30,11 @@ const PokemonHomeSeasonSelector = (props: SeasonSelectorProps) => {
     }, []);
 
     return <div>
-        {Object.keys(season ? season : {}).join('|')}
+        <select>
+            {Object.keys(season ?? {}).reverse().map((v,i) => {
+                const k = season![v][Object.keys(season![v]).pop()!]
+                return <option key={i} value={v}>{k.name} {k.start} - {k.end}</option>
+            })}
+        </select>
     </div>
 }
