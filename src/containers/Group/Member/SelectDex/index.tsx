@@ -75,8 +75,13 @@ const bst = ({hp, atk, def, spa, spd, spe}) => (hp + atk + def + spa + spd + spe
 const SelectDex = () => {
   // getPokemonIconNum
   const list = getSwShDex();
-  const { show, setShowFilter } = useState(false);
-  const { filter_types } = useState();
+  const [type_filter, setFilter] = useState({});
+  const [count, setCount] = useState(0);
+  const switchFilter = (type) => {
+    setCount(count+1)
+    type_filter[type] = !type_filter[type];
+    setFilter(type_filter);
+  }
   const columns = [{
     dataField: 'name',
     text: 'name',
@@ -157,11 +162,20 @@ const SelectDex = () => {
   }];
   // let num = dex.num;
   // console.log(getPokeIcon(toID(dex.name)))
+  console.log(type_filter);
   return (
     <Fragment>
       <div style={{display: 'flex'}}>
         <span>filters:</span>
-        {type_order.map(type => (<div style={{height: '14px'}}><Type type={type}/></div>))}
+        {type_order.map(type => (
+          <div style={{
+            height: '14px',
+            padding: '0 5px',
+            filter: type_filter[type] ? 'grayscale(0)' : 'grayscale(1)',
+          }}
+               onClick={e => switchFilter(type)}>
+            <Type type={type}/>
+          </div>))}
       </div>
       <BootstrapTable bootstrap4 keyField="name" data={list} columns={ columns }/>
     </Fragment>
