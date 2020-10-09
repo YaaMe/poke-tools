@@ -15,7 +15,7 @@ const md = {
 }
 
 import cram_table from 'tools/data/cram_table';
-import type_order from 'tools/constants';
+import { type_order } from 'tools/constants';
 
 let recipes = [];
 type_order.forEach(type => recipes = [
