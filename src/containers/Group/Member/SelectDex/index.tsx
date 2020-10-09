@@ -1,14 +1,22 @@
-import React from 'react';
-import { Table } from 'react-bootstrap';
+import React, {Fragment, useState} from 'react';
+import {
+  ButtonGroup,
+  Button,
+  Table
+} from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { findDex, getSwShDex } from 'tools/dex';
-import {BattlePokedex} from 'tools/data/pokedex';
+import { BattlePokedex } from 'tools/data/pokedex';
 import { Dex } from 'tools/sim/dex';
 // import { Dex, toID } from 'tools/battle-dex';
-import { resourcePrefix } from 'tools/constants';
+import { type_order, resourcePrefix } from 'tools/constants';
 const toID = Dex.getId;
 
 const Type = ({type}) => (<img src={`${resourcePrefix}/sprites/types/${type}.png`}/>);
+const TypeFilter = ({type}) => {
+  return (<div><Type type={type}/></div>)
+}
+
 
 const getPokeIconNum = (id, isFemale, facingLeft) => {
   let num = 0;
@@ -66,10 +74,9 @@ const bst = ({hp, atk, def, spa, spd, spe}) => (hp + atk + def + spa + spd + spe
 
 const SelectDex = () => {
   // getPokemonIconNum
-  // const team = ['venusaur']
-  // const dex = findDex('venusaur');
-  // const list = [dex, dex, dex, dex];
   const list = getSwShDex();
+  const { show, setShowFilter } = useState(false);
+  const { filter_types } = useState();
   const columns = [{
     dataField: 'name',
     text: 'name',
@@ -89,12 +96,16 @@ const SelectDex = () => {
     dataField: 'types',
     text: 'types',
     formatter: (types, row) => {
-      console.log(types);
       return (
         <div>
           {types.map(type => (<Type type={type}/>))}
         </div>
       )
+    },
+    headerEvents: {
+      onClick: (e, column, index) => {
+
+      }
     },
   }, {
     dataField: 'abilities',
@@ -103,7 +114,11 @@ const SelectDex = () => {
       const x = abilities[0];// TODO 0 1 H S
       const h = abilities.H;
       return (<span>{x} {h}</span>)
-    }
+    },
+    headerEvents: {
+      onClick: (e, column, index) => {
+      }
+    },
   }, {
     dataField: 'baseStats.hp',
     text: 'HP',
@@ -143,7 +158,13 @@ const SelectDex = () => {
   // let num = dex.num;
   // console.log(getPokeIcon(toID(dex.name)))
   return (
-    <BootstrapTable bootstrap4 keyField="name" data={list} columns={ columns }/>
+    <Fragment>
+      <div style={{display: 'flex'}}>
+        <span>filters:</span>
+        {type_order.map(type => (<div style={{height: '14px'}}><Type type={type}/></div>))}
+      </div>
+      <BootstrapTable bootstrap4 keyField="name" data={list} columns={ columns }/>
+    </Fragment>
   )
   /* return (
    *   <div>

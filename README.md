@@ -1,4 +1,4 @@
-> sass --watch scss/custom.scss src/custom.css
+> sass --watch src
 
 > npm start
 
