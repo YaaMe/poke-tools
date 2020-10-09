@@ -62,6 +62,7 @@ const mapDexSummary = (pokemon) => {
   )
 }
 
+const bst = ({hp, atk, def, spa, spd, spe}) => (hp + atk + def + spa + spd + spe);
 
 const SelectDex = () => {
   // getPokemonIconNum
@@ -98,26 +99,36 @@ const SelectDex = () => {
   }, {
     dataField: 'baseStats.hp',
     text: 'HP',
+    sort: true,
   }, {
     dataField: 'baseStats.atk',
     text: 'Atk',
+    sort: true,
   }, {
     dataField: 'baseStats.def',
     text: 'Def',
+    sort: true,
   }, {
     dataField: 'baseStats.spa',
     text: 'SpA',
+    sort: true,
   }, {
     dataField: 'baseStats.spd',
     text: 'SpD',
+    sort: true,
   }, {
     dataField: 'baseStats.spe',
     text: 'Spe',
+    sort: true,
   }, {
     dataField: 'baseStats',
     text: 'BST',
+    sort: true,
+    sortFunc: (a, b, order, dataField) => {
+      return order === 'asc' ? bst(b) - bst(a) : bst(a) - bst(b);
+    },
     formatter: (baseStats, row) => {
-      const { hp, atk, def, spa, spd, spe } = baseStats;
+      let { hp, atk, def, spa, spd, spe } = baseStats;
       return <span>{hp + atk + def + spa + spd + spe}</span>
     }
   }];
