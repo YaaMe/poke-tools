@@ -5,10 +5,10 @@ import { findDex, getSwShDex } from 'tools/dex';
 import {BattlePokedex} from 'tools/data/pokedex';
 import { Dex } from 'tools/sim/dex';
 // import { Dex, toID } from 'tools/battle-dex';
+import { resourcePrefix } from 'tools/constants';
 const toID = Dex.getId;
 
-const url = `url(https://play.pokemonshowdown.com/sprites/pokemonicons-sheet.png?v2) no-repeat scroll -0px -0px`
-const resourcePrefix = 'https://play.pokemonshowdown.com/';
+const Type = ({type}) => (<img src={`${resourcePrefix}/sprites/types/${type}.png`}/>);
 
 const getPokeIconNum = (id, isFemale, facingLeft) => {
   let num = 0;
@@ -36,31 +36,31 @@ const getPokeIcon = (id) => {
 }
 
 
-const mapDexSummary = (pokemon) => {
-  const id = toID(pokemon.name)
-  const x = pokemon.abilities[0];// TODO 0 1 H S
-  const h = pokemon.abilities.H;
-  const { hp, atk, def, spa, spd, spe } = pokemon.baseStats;
-
-  return (
-    <tr>
-      <td style={{display: 'flex'}}><span style={{
-        display: 'inline-block',
-        height: '30px',
-        width: '40px',
-        background: getPokeIcon(id)}}/><label>{pokemon.name}</label></td>
-      <td>{pokemon.types}</td>
-      <td>{x} {h}</td>
-      <td>{hp}</td>
-      <td>{atk}</td>
-      <td>{def}</td>
-      <td>{spa}</td>
-      <td>{spd}</td>
-      <td>{spe}</td>
-      <td>{hp + atk + def + spa + spd + spe}</td>
-    </tr>
-  )
-}
+/* const mapDexSummary = (pokemon) => {
+ *   const id = toID(pokemon.name)
+ *   const x = pokemon.abilities[0];// TODO 0 1 H S
+ *   const h = pokemon.abilities.H;
+ *   const { hp, atk, def, spa, spd, spe } = pokemon.baseStats;
+ * 
+ *   return (
+ *     <tr>
+ *       <td style={{display: 'flex'}}><span style={{
+ *         display: 'inline-block',
+ *         height: '30px',
+ *         width: '40px',
+ *         background: getPokeIcon(id)}}/><label>{pokemon.name}</label></td>
+ *       <td>{pokemon.types}</td>
+ *       <td>{x} {h}</td>
+ *       <td>{hp}</td>
+ *       <td>{atk}</td>
+ *       <td>{def}</td>
+ *       <td>{spa}</td>
+ *       <td>{spd}</td>
+ *       <td>{spe}</td>
+ *       <td>{hp + atk + def + spa + spd + spe}</td>
+ *     </tr>
+ *   )
+ * } */
 
 const bst = ({hp, atk, def, spa, spd, spe}) => (hp + atk + def + spa + spd + spe);
 
@@ -88,6 +88,14 @@ const SelectDex = () => {
   }, {
     dataField: 'types',
     text: 'types',
+    formatter: (types, row) => {
+      console.log(types);
+      return (
+        <div>
+          {types.map(type => (<Type type={type}/>))}
+        </div>
+      )
+    },
   }, {
     dataField: 'abilities',
     text: 'abilities',
