@@ -10,6 +10,7 @@ import {
 } from 'react-bootstrap';
 import cram_point from 'tools/data/cram_point';
 import { packId } from 'tools/tricks';
+import { type_order } from 'tools/constants';
 
 const md = {
   span: 4,
@@ -18,28 +19,6 @@ const md = {
 const lf = {
   span: 4,
 }
-
-const type_order = [
-  'Normal',
-  'Psychic',
-  'Fighting',
-  'Poison',
-  'Rock',
-  'Steel',
-  'Water',
-  'Electric',
-  'Grass',
-  'Bug',
-  'Fire',
-  'Ghost',
-  'Ice',
-  'Dark',
-  'Dragon',
-  'Flying',
-  'Ground',
-  'Fairy',
-];
-
 
 let recipes_point = [];
 type_order.forEach(type => recipes_point = [

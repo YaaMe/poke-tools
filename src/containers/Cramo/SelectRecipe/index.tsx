@@ -15,27 +15,7 @@ const md = {
 }
 
 import cram_table from 'tools/data/cram_table';
-
-const type_order = [
-  'Normal',
-  'Psychic',
-  'Fighting',
-  'Poison',
-  'Rock',
-  'Steel',
-  'Water',
-  'Electric',
-  'Grass',
-  'Bug',
-  'Fire',
-  'Ghost',
-  'Ice',
-  'Dark',
-  'Dragon',
-  'Flying',
-  'Ground',
-  'Fairy',
-];
+import type_order from 'tools/constants';
 
 let recipes = [];
 type_order.forEach(type => recipes = [
