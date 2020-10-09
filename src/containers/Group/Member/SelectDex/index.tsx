@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import { findDex } from 'tools/dex';
+import BootstrapTable from 'react-bootstrap-table-next';
+import { findDex, getSwShDex } from 'tools/dex';
 import {BattlePokedex} from 'tools/data/pokedex';
 import { Dex } from 'tools/sim/dex';
 // import { Dex, toID } from 'tools/battle-dex';
@@ -64,34 +65,90 @@ const mapDexSummary = (pokemon) => {
 
 const SelectDex = () => {
   // getPokemonIconNum
-  const team = ['venusaur']
-  const dex = findDex('venusaur');
-  const list = [dex, dex, dex, dex];
-  let num = dex.num;
-  console.log(getPokeIcon(toID(dex.name)))
+  // const team = ['venusaur']
+  // const dex = findDex('venusaur');
+  // const list = [dex, dex, dex, dex];
+  const list = getSwShDex();
+  const columns = [{
+    dataField: 'name',
+    text: 'name',
+    formatter: (name, row) => {
+      const id = toID(name)
+      return (
+        <div>
+          <span style={{
+            display: 'inline-block',
+            height: '30px',
+            width: '40px',
+            background: getPokeIcon(id)}}/><label>{name}</label>
+        </div>
+      )
+    }
+  }, {
+    dataField: 'types',
+    text: 'types',
+  }, {
+    dataField: 'abilities',
+    text: 'abilities',
+    formatter: (abilities, pokemon) => {
+      const x = abilities[0];// TODO 0 1 H S
+      const h = abilities.H;
+      return (<span>{x} {h}</span>)
+    }
+  }, {
+    dataField: 'baseStats.hp',
+    text: 'HP',
+  }, {
+    dataField: 'baseStats.atk',
+    text: 'Atk',
+  }, {
+    dataField: 'baseStats.def',
+    text: 'Def',
+  }, {
+    dataField: 'baseStats.spa',
+    text: 'SpA',
+  }, {
+    dataField: 'baseStats.spd',
+    text: 'SpD',
+  }, {
+    dataField: 'baseStats.spe',
+    text: 'Spe',
+  }, {
+    dataField: 'baseStats',
+    text: 'BST',
+    formatter: (baseStats, row) => {
+      const { hp, atk, def, spa, spd, spe } = baseStats;
+      return <span>{hp + atk + def + spa + spd + spe}</span>
+    }
+  }];
+  // let num = dex.num;
+  // console.log(getPokeIcon(toID(dex.name)))
   return (
-    <div>
-      <Table>
-        <thead>
-          <tr>
-            <th>name</th>
-            <th>types</th>
-            <th>abilities</th>
-            <th>HP</th>
-            <th>Atk</th>
-            <th>Def</th>
-            <th>SpA</th>
-            <th>SpD</th>
-            <th>Spe</th>
-            <th>BST</th>
-          </tr>
-        </thead>
-        <tbody>
-          {list.map(dex => mapDexSummary(dex))}
-        </tbody>
-      </Table>
-    </div>
+    <BootstrapTable bootstrap4 keyField="name" data={list} columns={ columns }/>
   )
+  /* return (
+   *   <div>
+   *     <Table>
+   *       <thead>
+   *         <tr>
+   *           <th>name</th>
+   *           <th>types</th>
+   *           <th>abilities</th>
+   *           <th>HP</th>
+   *           <th>Atk</th>
+   *           <th>Def</th>
+   *           <th>SpA</th>
+   *           <th>SpD</th>
+   *           <th>Spe</th>
+   *           <th>BST</th>
+   *         </tr>
+   *       </thead>
+   *       <tbody>
+   *         {list.map(dex => mapDexSummary(dex))}
+   *       </tbody>
+   *     </Table>
+   *   </div>
+   * ) */
 }
 
 export default SelectDex;

@@ -24,8 +24,8 @@ const Group = () => {
   return (
     <Container>
       <Row>
-        <Col md={{span: 2, offset: 0}}>env</Col>
-        <Col md={{span: 4, offset: 0}}>
+        <Col md={{span: 1, offset: 0}}>env</Col>
+        <Col md={{span: 10, offset: 0}}>
           <Row>
             <Col>
               {members.map(member => mapMember(member, onSelect))}
@@ -37,7 +37,7 @@ const Group = () => {
             </Col>
           </Row>
         </Col>
-        <Col md={{span: 4, offset: 0}}>anlyz</Col>
+        <Col md={{span: 1, offset: 0}}>anlyz</Col>
       </Row>
     </Container>
   );
