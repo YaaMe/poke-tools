@@ -7,6 +7,7 @@ import {
 import Member from './Member';
 import { BattlePokedex } from 'tools/data/pokedex';
 import { findDex } from 'tools/dex';
+import {PokemonRanking} from './Env';
 
 const mapMember = (member, onSelect) => {
   return <Button variant="outline-primary" onClick={e => onSelect(member)}>+</Button>
@@ -24,7 +25,7 @@ const Group = () => {
   return (
     <Container>
       <Row>
-        <Col md={{span: 1, offset: 0}}>env</Col>
+        <Col md={{span: 1, offset: 0}}><PokemonRanking /></Col>
         <Col md={{span: 10, offset: 0}}>
           <Row>
             <Col>

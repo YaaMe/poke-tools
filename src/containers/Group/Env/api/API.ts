@@ -1,6 +1,7 @@
 // import * as queryString from 'query-string';
 import {FetchOptions, PokemonRankReqParam, SeasonListReqBody, TrainerRankReqParam} from './Options';
 import {SeasonListResponse} from './Responses';
+import {PokemonRankInfo, TrainerRankInfo} from "./Interfaces";
 
 const RESOURCE_BASE = process.env.REACT_APP_POKEHOME_RESOURCE_BASE ?? 'https://resource.pokemon-home.com/';
 const API_BASE = process.env.REACT_APP_POKEHOME_API_BASE ?? 'https://api.battle.pokemon-home.com/battledata'

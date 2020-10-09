@@ -6,7 +6,7 @@
 * {id: 812, form: 0}
 * {id: 80, form: 2}
 */
-interface PokemonRankInfo {
+export interface PokemonRankInfo {
     id: number;
     form: number;
 }
@@ -42,18 +42,18 @@ interface PokemonRankInfo {
 },
 */
 
-interface Season {
+export interface Season {
     // 赛季序号
     [id: string]: SeasonInfos;
 }
 
-interface SeasonInfos {
+export interface SeasonInfos {
     // 赛季id命名规则，10固定开头，后跟赛季序号，最后跟rule+1
     // 如10111为11赛季单人赛，10092为9赛季双人赛，以此类推
     [id: string]: SeasonInfo;
 }
 
-interface SeasonInfo {
+export interface SeasonInfo {
     name: string; // 赛季名称
     start: string; // 开始时间
     end: string; // 结束时间
@@ -77,7 +77,7 @@ interface SeasonInfo {
 * rank: 1
 * rating_value: "2074557"
 */
-interface TrainerRankInfo {
+export interface TrainerRankInfo {
     icon: string;           // 训练家头像
     lng: string;            // 训练家注册语言
     name: string;           // 训练家名称
