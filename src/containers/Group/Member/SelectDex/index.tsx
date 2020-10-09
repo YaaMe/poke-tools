@@ -46,14 +46,14 @@ const getPokeIcon = (id) => {
 }
 
 
-const mapDexSummary = (pokemon) => {
+const mapDexSummary = (pokemon, onSelect) => {
   const id = toID(pokemon.name)
   const x = pokemon.abilities[0];// TODO 0 1 H S
   const h = pokemon.abilities.H;
   const { hp, atk, def, spa, spd, spe } = pokemon.baseStats;
 
   return (
-    <tr>
+    <tr onClick={e => onSelect(pokemon)}>
       <td style={{display: 'flex'}}><span style={{
         display: 'inline-block',
         height: '30px',
@@ -74,7 +74,7 @@ const mapDexSummary = (pokemon) => {
 
 const bst = ({hp, atk, def, spa, spd, spe}) => (hp + atk + def + spa + spd + spe);
 
-const SelectDex = () => {
+const SelectDex = ({ onSelect }) => {
   // getPokemonIconNum
   let list = getSwShDex();
   const [isAndLogic, setLogic] = useState(true);
@@ -98,7 +98,6 @@ const SelectDex = () => {
     setSearch(e.target.value);
   }
 
-  console.log('render');
   // let num = dex.num;
   // console.log(getPokeIcon(toID(dex.name)))
   if (type_filter.length || search !== '') {
@@ -194,7 +193,7 @@ const SelectDex = () => {
             </tr>
           </thead>
           <tbody>
-            {list.map(dex => mapDexSummary(dex))}
+            {list.map(dex => mapDexSummary(dex, onSelect))}
           </tbody>
         </Table>
       </div>

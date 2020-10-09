@@ -22,6 +22,7 @@ const Group = () => {
   const [dex, setDex] = useState(undefined);
 
   const onSelect = m => setDex(m);
+
   return (
     <Container fluid={true}>
       <Row style={{paddingTop: 10}}>
@@ -34,7 +35,7 @@ const Group = () => {
           </Row>
           <Row>
             <Col>
-              <Member dex={dex} />
+              <Member dex={dex} onSelect={onSelect}/>
             </Col>
           </Row>
         </Col>

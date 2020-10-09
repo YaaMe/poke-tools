@@ -10,11 +10,11 @@ const BuildMember = ({member = {}}) => {
   )
 }
 
-const Member = ({dex}) => {
+const Member = ({dex, onSelect}) => {
   if (dex) {
     return <BuildMember member={dex} />
   }
-  return <SelectDex/>
+  return <SelectDex onSelect={onSelect}/>
 }
 
 export default Member
