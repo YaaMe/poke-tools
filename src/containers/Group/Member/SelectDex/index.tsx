@@ -11,6 +11,7 @@ import { findDex, getSwShDex } from 'tools/dex';
 import { BattlePokedex } from 'tools/data/pokedex';
 import { Dex } from 'tools/sim/dex';
 // import { Dex, toID } from 'tools/battle-dex';
+import { getPokeIcon } from 'tools/tricks';
 import { type_order, resourcePrefix } from 'tools/constants';
 const toID = Dex.getId;
 
@@ -20,30 +21,7 @@ const TypeFilter = ({type}) => {
 }
 
 
-const getPokeIconNum = (id, isFemale, facingLeft) => {
-  let num = 0;
-  num = findDex(id).num;
-  if (num < 0 || num > 890) num = 0;
-  /* if (isFemale) {
-		 if (['unfezant', 'frillish', 'jellicent', 'meowstic', 'pyroar'].includes(id)) {
-		 num = BattlePokemonIconIndexes[id + 'f'];
-		 }
-	   }
-	   if (facingLeft) {
-		 if (BattlePokemonIconIndexesLeft[id]) {
-		 num = BattlePokemonIconIndexesLeft[id];
-		 }
-	   } */
-  return num;
-}
-const getPokeIcon = (id) => {
-  let num = getPokeIconNum(id);
-  let top = Math.floor(num / 12) * 30;
-	let left = (num % 12) * 40;
-  // let fainted = ((pokemon as Pokemon | ServerPokemon)?.fainted ? `;opacity:.3;filter:grayscale(100%) brightness(.5)` : ``);
-  // return `background:transparent url(${Dex.resourcePrefix}sprites/pokemonicons-sheet.png?g8) no-repeat scroll -${left}px -${top}px${fainted}`;
-  return `transparent url(${resourcePrefix}sprites/pokemonicons-sheet.png?v2) no-repeat scroll -${left}px -${top}px`;
-}
+
 
 
 const mapDexSummary = (pokemon, onSelect) => {
@@ -58,7 +36,7 @@ const mapDexSummary = (pokemon, onSelect) => {
         display: 'inline-block',
         height: '30px',
         width: '40px',
-        background: getPokeIcon(id)}}/><label>{pokemon.name}</label></td>
+        background: getPokeIcon(id, pokemon.num)}}/><label>{pokemon.name}</label></td>
       <td>{pokemon.types}</td>
       <td>{x} {h}</td>
       <td>{hp}</td>

@@ -7,10 +7,29 @@ import {
 import Member from './Member';
 import { BattlePokedex } from 'tools/data/pokedex';
 import { findDex } from 'tools/dex';
+import { Dex } from 'tools/sim/dex';
 import {PokemonRanking} from './Env';
+import { getPokeIcon } from 'tools/tricks';
+const toID = Dex.getId;
 
 const mapMember = (member, i, onSelect) => {
-  return <Button variant="outline-primary" onClick={e => onSelect(i)}>+</Button>
+  if (member) {
+    const id = toID(member.name);
+    return <Button variant="outline-primary" onClick={e => onSelect(i)}>
+      <div style={{
+        display: 'inline-block',
+        height: '30px',
+        width: '40px',
+        background: getPokeIcon(id, member.num)
+      }}></div>
+    </Button>
+  }
+  return <Button variant="outline-primary" onClick={e => onSelect(i)}>
+    <div style={{
+      height: '30px',
+      width: '40px',
+    }}>+</div>
+  </Button>
 }
 
 const reducer = function(state, action) {
