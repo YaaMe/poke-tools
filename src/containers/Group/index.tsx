@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useState, useReducer} from 'react';
 import {
   Container,
   Row, Col,
@@ -9,19 +9,40 @@ import { BattlePokedex } from 'tools/data/pokedex';
 import { findDex } from 'tools/dex';
 import {PokemonRanking} from './Env';
 
-const mapMember = (member, onSelect) => {
-  return <Button variant="outline-primary" onClick={e => onSelect(member)}>+</Button>
+const mapMember = (member, i, onSelect) => {
+  return <Button variant="outline-primary" onClick={e => onSelect(i)}>+</Button>
+}
+
+const reducer = function(state, action) {
+  switch (action.type) {
+    case 'select': return {
+      ...state,
+      index: action.data,
+    }
+    case 'update':
+      state.members[state.index] = action.data;
+      return {...state};
+    default: return state;
+  }
+  return state
 }
 
 const Group = () => {
   const target = 'blastoise';
   // console.log(BattlePokedex[target])
   const targets = ['blastoise', 'venusaur', 'butterfree', 'beedrill', '', '']
-  console.log(findDex(target));
-  let members = targets.map(id => findDex(id));
-  const [dex, setDex] = useState(undefined);
+  let team = targets.map(id => findDex(id));
+  const [{index, members}, dispatch] = useReducer(reducer, {
+    index: 0,
+    members: team
+  })
 
-  const onSelect = m => setDex(m);
+  const onSelect = data => {
+    dispatch({type: 'select', data});
+  }
+  const onUpdateMember = data => {
+    dispatch({type: 'update',data});
+  }
 
   return (
     <Container fluid={true}>
@@ -30,12 +51,12 @@ const Group = () => {
         <Col md={{span: 6, offset: 0}}>
           <Row>
             <Col>
-              {members.map(member => mapMember(member, onSelect))}
+              {members.map((member, i) => mapMember(member, i, onSelect))}
             </Col>
           </Row>
           <Row>
             <Col>
-              <Member dex={dex} onSelect={onSelect}/>
+              <Member dex={members[index]} onSelect={onUpdateMember}/>
             </Col>
           </Row>
         </Col>
