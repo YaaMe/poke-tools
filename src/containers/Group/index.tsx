@@ -11,7 +11,6 @@ import { findDex } from 'tools/dex';
 import { Dex } from 'tools/sim/dex';
 import {PokemonRanking} from './Env';
 import { getPokeIcon, toPokeID } from 'tools/tricks';
-import './group.scoped.scss';
 
 const mapMember = (member, i, onSelect) => {
   if (member) {
