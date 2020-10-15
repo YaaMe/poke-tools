@@ -10,11 +10,11 @@ const BuildMember = ({member = {}}) => {
   )
 }
 
-const Member = ({dex, onSelect}) => {
+const InfoArea = ({dex, onSelect}) => {
   if (dex) {
     return <BuildMember member={dex} />
   }
   return <SelectDex onSelect={onSelect}/>
 }
 
-export default Member
+export default InfoArea;

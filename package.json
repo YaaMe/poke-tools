@@ -12,6 +12,7 @@
     "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
     "bootstrap": "^4.5.0",
+    "craco-plugin-scoped-css": "^1.1.0",
     "lodash": "^4.17.20",
     "react": "^16.13.1",
     "react-bootstrap": "^1.1.1",
@@ -43,5 +44,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "craco-sass-resources-loader": "^1.1.0",
+    "node-sass": "^4.14.1"
   }
 }

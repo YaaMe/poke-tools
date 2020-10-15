@@ -4,6 +4,8 @@
 /src/custom.css.map
 /src/*/*.css
 /src/*/*.css.map
+/src/*/*.scoped.css
+/src/*/*.scoped.css.map
 
 
 # dependencies

@@ -4,13 +4,15 @@ import {
   Row, Col,
   Button
 } from 'react-bootstrap';
-import Member from './Member';
+import InfoArea from './InfoArea';
 import { BattlePokedex } from 'tools/data/pokedex';
 import { findDex } from 'tools/dex';
 import { Dex } from 'tools/sim/dex';
 import {PokemonRanking} from './Env';
 import { getPokeIcon } from 'tools/tricks';
+import './group.scoped.scss';
 const toID = Dex.getId;
+
 
 const mapMember = (member, i, onSelect) => {
   if (member) {
@@ -41,6 +43,8 @@ const reducer = function(state, action) {
     case 'update':
       state.members[state.index] = action.data;
       return {...state};
+    case 'info':
+      return state;
     default: return state;
   }
   return state
@@ -53,6 +57,7 @@ const Group = () => {
   let team = targets.map(id => findDex(id));
   const [{index, members}, dispatch] = useReducer(reducer, {
     index: 0,
+    info: 'default',
     members: team
   })
 
@@ -73,9 +78,23 @@ const Group = () => {
               {members.map((member, i) => mapMember(member, i, onSelect))}
             </Col>
           </Row>
+          <Row className="test">
+            <Col>
+              dex name
+            </Col>
+            <Col>
+              item&ability
+            </Col>
+            <Col>
+              moves
+            </Col>
+            <Col>
+              Stats
+            </Col>
+          </Row>
           <Row>
             <Col>
-              <Member dex={members[index]} onSelect={onUpdateMember}/>
+              <InfoArea dex={members[index]} onSelect={onUpdateMember}/>
             </Col>
           </Row>
         </Col>
