@@ -10,10 +10,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { findDex, getSwShDex } from 'tools/dex';
 import { BattlePokedex } from 'tools/data/pokedex';
 import { Dex } from 'tools/sim/dex';
-// import { Dex, toID } from 'tools/battle-dex';
-import { getPokeIcon } from 'tools/tricks';
+import { getPokeIcon, toPokeID } from 'tools/tricks';
 import { type_order, resourcePrefix } from 'tools/constants';
-const toID = Dex.getId;
 
 const Type = ({type}) => (<img src={`${resourcePrefix}/sprites/types/${type}.png`}/>);
 const TypeFilter = ({type}) => {
@@ -25,7 +23,7 @@ const TypeFilter = ({type}) => {
 
 
 const mapDexSummary = (pokemon, onSelect) => {
-  const id = toID(pokemon.name)
+  const id = toPokeID(pokemon.name)
   const x = pokemon.abilities[0];// TODO 0 1 H S
   const h = pokemon.abilities.H;
   const { hp, atk, def, spa, spd, spe } = pokemon.baseStats;
@@ -77,7 +75,6 @@ const SelectDex = ({ onSelect }) => {
   }
 
   // let num = dex.num;
-  // console.log(getPokeIcon(toID(dex.name)))
   if (type_filter.length || search !== '') {
     list = list.filter(dex => {
       const filter_on_type = function(dex, type_filter) {

@@ -1,5 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { resourcePrefix } from './constants';
+import { Dex } from './sim/dex';
 
 export const genId = () => uuid();
 export const packId = obj => ({...obj, uuid: uuid() })
@@ -30,3 +31,16 @@ export const getPokeIcon = (id, num) => {
     // return `background:transparent url(${Dex.resourcePrefix}sprites/pokemonicons-sheet.png?g8) no-repeat scroll -${left}px -${top}px${fainted}`;
     return `transparent url(${resourcePrefix}sprites/pokemonicons-sheet.png?v2) no-repeat scroll -${left}px -${top}px`;
 }
+
+export const getPokeDexImg = (name, num) => {
+    return `url(${resourcePrefix}sprites/dex/${name}.png) no-repeat`
+}
+
+export const toPokeID = Dex.getId;
+
+// getTeambuilderSprite(pokemon: any, gen: number = 0) {
+// 		if (!pokemon) return '';
+// 		const data = this.getTeambuilderSpriteData(pokemon, gen);
+// 		const shiny = (data.shiny ? '-shiny' : '');
+// 		return 'background-image:url(' + Dex.resourcePrefix + data.spriteDir + shiny + '/' + data.spriteid + '.png);background-position:' + data.x + 'px ' + data.y + 'px;background-repeat:no-repeat';
+// }

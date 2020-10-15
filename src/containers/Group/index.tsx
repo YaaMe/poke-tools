@@ -5,18 +5,17 @@ import {
   Button
 } from 'react-bootstrap';
 import InfoArea from './InfoArea';
+import DexInfo from './DexInfo';
 import { BattlePokedex } from 'tools/data/pokedex';
 import { findDex } from 'tools/dex';
 import { Dex } from 'tools/sim/dex';
 import {PokemonRanking} from './Env';
-import { getPokeIcon } from 'tools/tricks';
+import { getPokeIcon, toPokeID } from 'tools/tricks';
 import './group.scoped.scss';
-const toID = Dex.getId;
-
 
 const mapMember = (member, i, onSelect) => {
   if (member) {
-    const id = toID(member.name);
+    const id = toPokeID(member.name);
     return <Button variant="outline-primary" onClick={e => onSelect(i)}>
       <div style={{
         display: 'inline-block',
@@ -74,24 +73,11 @@ const Group = () => {
         <Col md={{span: 3, offset: 0}}><PokemonRanking /></Col>
         <Col md={{span: 6, offset: 0}}>
           <Row>
-            <Col>
+            <Col md={{span: 12}}>
               {members.map((member, i) => mapMember(member, i, onSelect))}
             </Col>
           </Row>
-          <Row className="test">
-            <Col>
-              dex name
-            </Col>
-            <Col>
-              item&ability
-            </Col>
-            <Col>
-              moves
-            </Col>
-            <Col>
-              Stats
-            </Col>
-          </Row>
+          <DexInfo dex={members[index]} onUpdate={onUpdateMember}/>
           <Row>
             <Col>
               <InfoArea dex={members[index]} onSelect={onUpdateMember}/>
