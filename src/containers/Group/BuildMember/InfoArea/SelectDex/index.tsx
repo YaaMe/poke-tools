@@ -3,6 +3,7 @@ import {
   ButtonGroup,
   Button,
   InputGroup,
+  Form,
   FormControl,
   Table
 } from 'react-bootstrap';
@@ -17,9 +18,6 @@ const Type = ({type}) => (<img src={`${resourcePrefix}/sprites/types/${type}.png
 const TypeFilter = ({type}) => {
   return (<div><Type type={type}/></div>)
 }
-
-
-
 
 
 const mapDexSummary = (pokemon, onSelect) => {
@@ -128,9 +126,16 @@ const SelectDex = ({ onSelect }) => {
         </InputGroup>
       </div>
       <div style={{display: 'flex'}}>
-        <Button variant="outline-primary"
-                onClick={e => setLogic(!isAndLogic)}
-        >{isAndLogic ? "&&" : "||" }filters:</Button>
+        <Form.Check
+          type="switch"
+          id="filter_type"
+          label={`${isAndLogic ? 'match' : 'include'} type: `}
+          value={isAndLogic}
+          onChange={e => setLogic(!isAndLogic)}
+        />
+        {/* <Button variant="outline-primary"
+            onClick={e => setLogic(!isAndLogic)}
+            >{isAndLogic ? "&&" : "||" }filters:</Button> */}
         {type_filter.map(type => (
           <div style={{
             height: '14px',

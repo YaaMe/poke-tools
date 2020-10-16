@@ -17,23 +17,30 @@ const DetailCell = ({title, value}) => {
   )
 }
 
-const DexInfo = ({dex, onUpdate}) => {
-  if (!dex) return <div/>;
-  console.log(dex);
+const DexInfo = ({dex, updateMember, switchInfo}) => {
+  if (!dex) return <div className="dex" />;
   // level gender shiny gmax
   const info = [{
     title: 'level',
     value: 50
   }, {
     title: 'gender',
-    value: '--'
+    value: 0
   }, {
     title: 'shiny',
-    value: 'No'
+    value: 0
   }, {
     title: 'gmax',
-    value: 'No'
-  }]
+    value: 0
+  }];
+  const CLICK_NAME = {
+    page: 'dex',
+  };
+  const details = {
+    page: 'detail',
+    addon: info
+  };
+
   return (
     <Fragment>
       <Row className="dex">
@@ -45,15 +52,24 @@ const DexInfo = ({dex, onUpdate}) => {
             background: getPokeDexImg(toPokeID(dex.name), dex.num),
           }}>
           </div>
-          <FormControl value="xxxxxx" />
+          <Button variant="light" onClick={e => switchInfo(CLICK_NAME) }>{dex.name}</Button>
         </Col>
         <Col md={{span: 4}}>
           <Row>
             <Col>
-            <div className="title">Details</div>
-            <Button className="details" variant="light">
-              {info.map(({title, value}) => <DetailCell title={title} value={value} />)}
-            </Button>
+              <div className="title">Details</div>
+              <Button className="details" variant="light" onClick={e => switchInfo(details)}>
+                {info
+                  .map(({title, value}) => {
+                    switch(title) {
+                      case 'gender': return {title, value: value === 0 ? 'male' : 'female'};
+                      case 'shiny':
+                      case 'gmax': return {title, value: value === 0 ? 'No' : 'Yes'};
+                      case 'level':
+                      default: return {title, value}
+                    }
+                  }).map(({title, value}) => <DetailCell title={title} value={value} />)}
+              </Button>
             </Col>
           </Row>
           <Row>
