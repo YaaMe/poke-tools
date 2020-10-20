@@ -5,6 +5,7 @@ import {
   Button,
   FormControl,
 } from 'react-bootstrap';
+import { Type } from 'components';
 import { getPokeDexImg, toPokeID } from 'tools/tricks';
 import './dexinfo.scoped.scss';
 
@@ -40,7 +41,6 @@ const DexInfo = ({dex, updateMember, switchInfo}) => {
     page: 'detail',
     addon: info
   };
-
   return (
     <Fragment>
       <Row className="dex">
@@ -78,7 +78,7 @@ const DexInfo = ({dex, updateMember, switchInfo}) => {
               item
             </Col>
             <Col md={{span: 6}}>
-              type
+              <div>{dex.types.map(type => <Type type={type} />)}</div>
               ability
             </Col>
           </Row>

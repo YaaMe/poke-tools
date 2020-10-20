@@ -3,6 +3,7 @@ import { Form } from 'react-bootstrap';
 import './details.scoped.css';
 
 const Details = ({detail}) => {
+
   const test_detail = [{
     title: 'level',
     value: 50
@@ -33,7 +34,7 @@ const Details = ({detail}) => {
             id="gender"
             label="Male"
             checked={gender.value === 0}
-            onChange={}
+            onChange={e => {} }
           />
         </div>
         <div className="radio">
