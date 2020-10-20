@@ -1,6 +1,9 @@
 import { v4 as uuid } from 'uuid';
 import { resourcePrefix } from './constants';
 import { Dex } from './sim/dex';
+import { BattleItems } from './data/items';
+
+const toID = Dex.getId;
 
 export const genId = () => uuid();
 export const packId = obj => ({...obj, uuid: uuid() })
@@ -30,6 +33,15 @@ export const getPokeIcon = (id, num) => {
     // let fainted = ((pokemon as Pokemon | ServerPokemon)?.fainted ? `;opacity:.3;filter:grayscale(100%) brightness(.5)` : ``);
     // return `background:transparent url(${Dex.resourcePrefix}sprites/pokemonicons-sheet.png?g8) no-repeat scroll -${left}px -${top}px${fainted}`;
     return `transparent url(${resourcePrefix}sprites/pokemonicons-sheet.png?v2) no-repeat scroll -${left}px -${top}px`;
+}
+
+export const getItemIcon = (item) => {
+    let target = BattleItems[toID(item)] || {};
+    let num = target.spritenum || 0;
+
+		let top = Math.floor(num / 16) * 24;
+		let left = (num % 16) * 24;
+    return `transparent url(${resourcePrefix}sprites/itemicons-sheet.png?g8) no-repeat scroll -${left}px -${top}px`;
 }
 
 export const getPokeDexImg = (name, num) => {

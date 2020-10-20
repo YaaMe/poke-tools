@@ -6,7 +6,7 @@ import {
   FormControl,
 } from 'react-bootstrap';
 import { Type } from 'components';
-import { getPokeDexImg, toPokeID } from 'tools/tricks';
+import { getPokeDexImg, toPokeID, getItemIcon } from 'tools/tricks';
 import './dexinfo.scoped.scss';
 
 const DetailCell = ({title, value}) => {
@@ -37,10 +37,16 @@ const DexInfo = ({dex, updateMember, switchInfo}) => {
   const CLICK_NAME = {
     page: 'dex',
   };
+  const items = {
+    page: 'item',
+    now: {}
+  }
   const details = {
     page: 'detail',
     addon: info
   };
+  console.log(getItemIcon('Aguav Berry'));
+  // TODO item button => Input
   return (
     <Fragment>
       <Row className="dex">
@@ -74,8 +80,12 @@ const DexInfo = ({dex, updateMember, switchInfo}) => {
           </Row>
           <Row>
             <Col md={{span: 6}}>
-              itemicon
-              item
+              <div style={{
+                height: '24px',
+                width: '24px',
+                background: getItemIcon('Aguav Berry')
+              }}/>
+              <Button variant="light" onClick={e => switchInfo(items) }>item name</Button>
             </Col>
             <Col md={{span: 6}}>
               <div>{dex.types.map(type => <Type type={type} />)}</div>
