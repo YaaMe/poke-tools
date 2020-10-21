@@ -46,7 +46,7 @@ const DexInfo = ({member, updateMember, switchInfo}) => {
   const levelInfo = {
     page: 'level',
   };
-  // TODO item button => Input
+
   const onItem = e => {
     updateMember({
       dex,
@@ -56,9 +56,6 @@ const DexInfo = ({member, updateMember, switchInfo}) => {
       }
     })
   };
-  const onClickItem = e => {
-    console.log('click item useful');
-  }
   return (
     <Fragment>
       <Row className="dex">
