@@ -71,7 +71,6 @@ const BuildMember = () => {
   const onUpdateMember = data => {
     dispatch({type: 'update', data});
   }
-  console.log('rerender');
 
   return (
     <Fragment>

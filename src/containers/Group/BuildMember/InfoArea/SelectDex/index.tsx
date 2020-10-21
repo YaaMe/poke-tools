@@ -69,7 +69,6 @@ const SelectDex = ({ onSelect }) => {
   }
 
   const onSearch = e => {
-    console.log(e.target.value);
     setSearch(e.target.value);
   }
 
@@ -98,7 +97,6 @@ const SelectDex = ({ onSelect }) => {
             || JSON.stringify(dex.abilities).toLowerCase().includes(search.toLowerCase())
       }
       let flag = filter_on_search(dex, search);
-      console.log(flag);
       if (flag) {
         flag = filter_on_type(dex, type_filter);
       }
@@ -134,9 +132,6 @@ const SelectDex = ({ onSelect }) => {
           value={isAndLogic}
           onChange={e => setLogic(!isAndLogic)}
         />
-        {/* <Button variant="outline-primary"
-            onClick={e => setLogic(!isAndLogic)}
-            >{isAndLogic ? "&&" : "||" }filters:</Button> */}
         {type_filter.map(type => (
           <div style={{
             height: '14px',

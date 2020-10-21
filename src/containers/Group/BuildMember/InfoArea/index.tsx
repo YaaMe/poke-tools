@@ -13,12 +13,15 @@ const BuildMember = ({member = {}}) => {
   )
 }
 
+
+
 const InfoArea = ({member, updateMember, info = {page: ''}}) => {
 
   switch (info.page) {
     case 'dex': return <SelectDex onSelect={updateMember} />;
     case 'level': return <Level member={member} onUpdateMember={updateMember} />;
-    case 'item': return <SelectItem onSelect={updateMember} />;
+      // TODO setting update action
+    case 'item': return <SelectItem member={member} onSelect={updateMember} />;
     case 'ability':;
     case 'move':;
     case 'stats':;
