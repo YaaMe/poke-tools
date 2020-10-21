@@ -21,31 +21,30 @@ const DetailCell = ({title, value}) => {
 
 const DexInfo = ({member, updateMember, switchInfo}) => {
   let { detail, dex } = member;
-  // if (!dex) return <div className="dex" />;
-  // level gender shiny gmax
+  if (!dex) return <div className="dex" />;
+  let { level = 50, gender = 0, shiny = 0, gmax = 0 } = detail;
   const info = [{
     title: 'level',
-    value: 50
+    value: level
   }, {
     title: 'gender',
-    value: 0
+    value: gender
   }, {
     title: 'shiny',
-    value: 0
+    value: shiny
   }, {
     title: 'gmax',
-    value: 0
+    value: gmax
   }];
-  const CLICK_NAME = {
+  const namePage = {
     page: 'dex',
   };
   const items = {
     page: 'item',
     now: {}
   };
-  const details = {
-    page: 'detail',
-    addon: info
+  const levelInfo = {
+    page: 'level',
   };
   // TODO item button => Input
   const onItem = e => {
@@ -57,6 +56,9 @@ const DexInfo = ({member, updateMember, switchInfo}) => {
       }
     })
   };
+  const onClickItem = e => {
+    console.log('click item useful');
+  }
   return (
     <Fragment>
       <Row className="dex">
@@ -68,13 +70,13 @@ const DexInfo = ({member, updateMember, switchInfo}) => {
             background: getPokeDexImg(toPokeID(dex.name), dex.num),
           }}>
           </div>
-          <Button variant="light" onClick={e => switchInfo(CLICK_NAME) }>{dex.name}</Button>
+          <Button variant="light" onClick={e => switchInfo(namePage) }>{dex.name}</Button>
         </Col>
         <Col md={{span: 4}}>
           <Row>
             <Col>
               <div className="title">Details</div>
-              <Button className="details" variant="light" onClick={e => switchInfo(details)}>
+              <Button className="details" variant="light" onClick={e => switchInfo(levelInfo)}>
                 {info
                   .map(({title, value}) => {
                     switch(title) {
@@ -95,8 +97,12 @@ const DexInfo = ({member, updateMember, switchInfo}) => {
                 width: '24px',
                 background: getItemIcon(detail.item)
               }}/>
-              <FormControl controlid="item" placeholder="search item" onChange={onItem} />
-              <Button variant="light" onClick={e => switchInfo(items) }>{detail.item}</Button>
+              <FormControl
+                controlid="item"
+                placeholder="search item"
+                onChange={onItem}
+                value={detail.item}
+                onClick={e => switchInfo({page: 'item', addon: detail.item})} />
             </Col>
             <Col md={{span: 6}}>
               <div>{dex.types.map(type => <Type type={type} />)}</div>

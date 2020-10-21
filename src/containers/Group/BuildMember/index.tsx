@@ -71,6 +71,7 @@ const BuildMember = () => {
   const onUpdateMember = data => {
     dispatch({type: 'update', data});
   }
+  console.log('rerender');
 
   return (
     <Fragment>
@@ -82,7 +83,7 @@ const BuildMember = () => {
       <DexInfo member={members[index]} updateMember={onUpdateMember} switchInfo={switchInfo} />
       <Row>
         <Col>
-          <InfoArea member={members[index]} info={info} onSelect={onUpdateMember}/>
+          <InfoArea member={members[index]} info={info} updateMember={onUpdateMember}/>
         </Col>
       </Row>
     </Fragment>

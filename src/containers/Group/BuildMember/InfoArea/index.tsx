@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SelectDex from './SelectDex';
-import Details from './Details';
+import Level from './Level';
 
 // item
 const BuildMember = ({member = {}}) => {
@@ -12,11 +12,11 @@ const BuildMember = ({member = {}}) => {
   )
 }
 
-const InfoArea = ({member, onSelect, info = {page: ''}}) => {
+const InfoArea = ({member, updateMember, info = {page: ''}}) => {
 
   switch (info.page) {
-    case 'dex': return <SelectDex onSelect={onSelect} />;
-    case 'detail': return <Details detail={member}/>;
+    case 'dex': return <SelectDex onSelect={updateMember} />;
+    case 'level': return <Level member={member} onUpdateMember={updateMember} />;
     case 'item':;
     case 'ability':;
     case 'move':;
@@ -26,7 +26,7 @@ const InfoArea = ({member, onSelect, info = {page: ''}}) => {
         // select page, default item
         return <BuildMember member={member} />
       }
-      return <SelectDex onSelect={onSelect}/>
+      return <SelectDex onSelect={updateMember}/>
   }
 }
 
