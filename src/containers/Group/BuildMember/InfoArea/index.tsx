@@ -3,6 +3,7 @@ import React from 'react';
 import SelectDex from './SelectDex';
 import Details from './Details';
 
+// item
 const BuildMember = ({member = {}}) => {
   return (
     <div>
@@ -11,17 +12,19 @@ const BuildMember = ({member = {}}) => {
   )
 }
 
-const InfoArea = ({dex, onSelect, info = {page: ''}}) => {
+const InfoArea = ({member, onSelect, info = {page: ''}}) => {
+
   switch (info.page) {
     case 'dex': return <SelectDex onSelect={onSelect} />;
-    case 'detail': return <Details detail={dex}/>;
+    case 'detail': return <Details detail={member}/>;
     case 'item':;
     case 'ability':;
     case 'move':;
     case 'stats':;
     default:
-      if (dex) {
-        return <BuildMember member={dex} />
+      if (member) {
+        // select page, default item
+        return <BuildMember member={member} />
       }
       return <SelectDex onSelect={onSelect}/>
   }

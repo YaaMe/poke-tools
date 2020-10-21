@@ -36,6 +36,7 @@ export const getPokeIcon = (id, num) => {
 }
 
 export const getItemIcon = (item) => {
+    if (!item) return '';
     let target = BattleItems[toID(item)] || {};
     let num = target.spritenum || 0;
 

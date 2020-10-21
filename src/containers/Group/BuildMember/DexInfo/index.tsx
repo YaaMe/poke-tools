@@ -3,6 +3,7 @@ import {
   Row, Col,
   ButtonGroup,
   Button,
+  InputGroup,
   FormControl,
 } from 'react-bootstrap';
 import { Type } from 'components';
@@ -18,8 +19,9 @@ const DetailCell = ({title, value}) => {
   )
 }
 
-const DexInfo = ({dex, updateMember, switchInfo}) => {
-  if (!dex) return <div className="dex" />;
+const DexInfo = ({member, updateMember, switchInfo}) => {
+  let { detail, dex } = member;
+  // if (!dex) return <div className="dex" />;
   // level gender shiny gmax
   const info = [{
     title: 'level',
@@ -40,13 +42,21 @@ const DexInfo = ({dex, updateMember, switchInfo}) => {
   const items = {
     page: 'item',
     now: {}
-  }
+  };
   const details = {
     page: 'detail',
     addon: info
   };
-  console.log(getItemIcon('Aguav Berry'));
   // TODO item button => Input
+  const onItem = e => {
+    updateMember({
+      dex,
+      detail: {
+        ...dex.detail,
+        item: e.target.value,
+      }
+    })
+  };
   return (
     <Fragment>
       <Row className="dex">
@@ -83,9 +93,10 @@ const DexInfo = ({dex, updateMember, switchInfo}) => {
               <div style={{
                 height: '24px',
                 width: '24px',
-                background: getItemIcon('Aguav Berry')
+                background: getItemIcon(detail.item)
               }}/>
-              <Button variant="light" onClick={e => switchInfo(items) }>item name</Button>
+              <FormControl controlid="item" placeholder="search item" onChange={onItem} />
+              <Button variant="light" onClick={e => switchInfo(items) }>{detail.item}</Button>
             </Col>
             <Col md={{span: 6}}>
               <div>{dex.types.map(type => <Type type={type} />)}</div>

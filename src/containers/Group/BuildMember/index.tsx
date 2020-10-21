@@ -52,7 +52,10 @@ const BuildMember = () => {
   const target = 'blastoise';
   // console.log(BattlePokedex[target])
   const targets = ['blastoise', 'venusaur', 'butterfree', 'beedrill', '', '']
-  let team = targets.map(id => findDex(id));
+  let team = targets.map(id => ({
+    detail: {},
+    dex: findDex(id)
+  }));
   const [{index, members, info}, dispatch] = useReducer(reducer, {
     index: 0,
     info: {
@@ -66,20 +69,20 @@ const BuildMember = () => {
     dispatch({type: 'select', data});
   }
   const onUpdateMember = data => {
-    dispatch({type: 'update',data});
+    dispatch({type: 'update', data});
   }
 
   return (
     <Fragment>
       <Row>
         <Col md={{span: 12}}>
-          {members.map((member, i) => mapMember(member, i, onSelect))}
+          {members.map((member, i) => mapMember(member.dex, i, onSelect))}
         </Col>
       </Row>
-      <DexInfo dex={members[index]} updateMember={onUpdateMember} switchInfo={switchInfo} />
+      <DexInfo member={members[index]} updateMember={onUpdateMember} switchInfo={switchInfo} />
       <Row>
         <Col>
-          <InfoArea dex={members[index]} info={info} onSelect={onUpdateMember}/>
+          <InfoArea member={members[index]} info={info} onSelect={onUpdateMember}/>
         </Col>
       </Row>
     </Fragment>

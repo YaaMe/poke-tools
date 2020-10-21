@@ -28,7 +28,7 @@ const mapDexSummary = (pokemon, onSelect) => {
   const { hp, atk, def, spa, spd, spe } = pokemon.baseStats;
 
   return (
-    <tr onClick={e => onSelect(pokemon)}>
+    <tr onClick={e => onSelect({dex: pokemon, detail: {}})}>
       <td style={{display: 'flex'}}><span style={{
         display: 'inline-block',
         height: '30px',
