@@ -23,6 +23,7 @@ const DexInfo = ({member, updateMember, switchInfo}) => {
   let { detail, dex } = member;
   if (!dex) return <div className="dex" />;
   let { level = 50, gender = 0, shiny = 0, gmax = 0 } = detail;
+
   const info = [{
     title: 'level',
     value: level
@@ -36,16 +37,6 @@ const DexInfo = ({member, updateMember, switchInfo}) => {
     title: 'gmax',
     value: gmax
   }];
-  const namePage = {
-    page: 'dex',
-  };
-  const items = {
-    page: 'item',
-    now: {}
-  };
-  const levelInfo = {
-    page: 'level',
-  };
 
   const onItem = e => {
     updateMember({
@@ -67,13 +58,13 @@ const DexInfo = ({member, updateMember, switchInfo}) => {
             background: getPokeDexImg(toPokeID(dex.name), dex.num),
           }}>
           </div>
-          <Button variant="light" onClick={e => switchInfo(namePage) }>{dex.name}</Button>
+          <Button variant="light" onClick={e => switchInfo({page: 'dex'})}>{dex.name}</Button>
         </Col>
         <Col md={{span: 4}}>
           <Row>
             <Col>
               <div className="title">Details</div>
-              <Button className="details" variant="light" onClick={e => switchInfo(levelInfo)}>
+              <Button className="details" variant="light" onClick={e => switchInfo({page: 'level'})}>
                 {info
                   .map(({title, value}) => {
                     switch(title) {
@@ -98,12 +89,14 @@ const DexInfo = ({member, updateMember, switchInfo}) => {
                 controlid="item"
                 placeholder="search item"
                 onChange={onItem}
-                value={detail.item}
-                onClick={e => switchInfo({page: 'item', addon: detail.item})} />
+                value={detail.item ? detail.item : ''}
+                onClick={e => switchInfo({page: 'item'})} />
             </Col>
             <Col md={{span: 6}}>
               <div>{dex.types.map(type => <Type type={type} />)}</div>
-              ability
+              <Button className="ability" variant="light" onClick={e => switchInfo({page: 'ability'})}>
+                {detail.ability}
+              </Button>
             </Col>
           </Row>
         </Col>
