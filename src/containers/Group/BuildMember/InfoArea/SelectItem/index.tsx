@@ -11,7 +11,7 @@ const mapItem = (name, member, onSelect) => {
   return (
     <ListGroup.Item onClick={e => onSelect({
       ...member,
-      detail: {...member.detail, item},
+      detail: {...member.detail, item: name},
     })}>
       <div style={{
       height: '24px',
