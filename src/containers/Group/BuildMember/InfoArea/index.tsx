@@ -4,6 +4,8 @@ import Level from './Level';
 import SelectDex from './SelectDex';
 import SelectItem from './SelectItem';
 import SelectAbility from './SelectAbility';
+import SelectMove from './SelectMove';
+import SetStats from './SetStats';
 
 // item
 const BuildMember = ({member = {}}) => {
@@ -24,8 +26,8 @@ const InfoArea = ({member, updateMember, info = {page: ''}}) => {
       // TODO setting update action
     case 'item': return <SelectItem member={member} onSelect={updateMember} />;
     case 'ability': return <SelectAbility member={member} onSelect={updateMember} />;
-    case 'move':;
-    case 'stats':;
+    case 'move': return <SelectMove member={member} onSelect={updateMember} />;
+    case 'stats': return <SetStats member={member} onSet={updateMember} />;
     default:
       if (member) {
         // select page, default item
