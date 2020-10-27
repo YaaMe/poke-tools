@@ -40,4 +40,15 @@
   margin-bottom: 0;
 }
 
+.ability {
+  min-width: 78px;
+  min-height: 38px;
+}
+
+.move {
+  width: 100%;
+  min-width: 78px;
+  min-height: 38px;
+}
+
 /*# sourceMappingURL=dexinfo.scoped.css.map */
