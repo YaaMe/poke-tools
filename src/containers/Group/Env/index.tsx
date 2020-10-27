@@ -49,11 +49,9 @@ export const PokemonRanking = () => {
         })
     };
     const getSeasonInfo = (season: PokemonRankingState, mode: string) => {
-        console.log("called getSeasonInfo..", season)
-
-        console.log("called getSeasonInfo and pass check", season)
         const modeNum = mode === 'single' ? 1 : 2;
-        const seasonID = `10${season.seasonID!}${modeNum}`;
+        const seasonNum = season.seasonID!.length < 2 ? `0${season.seasonID}` : season.seasonID
+        const seasonID = `10${seasonNum}${modeNum}`;
         //      1~11 赛季集合   11 特定赛季序号   10固定位  11 特定赛季序号  模式 rule+1，0→1 单打，1→2 双打   10111 赛季ID
         return season.seasons![season.seasonID!][seasonID]
     }
