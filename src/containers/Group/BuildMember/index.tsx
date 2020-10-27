@@ -53,7 +53,9 @@ const BuildMember = () => {
   // console.log(BattlePokedex[target])
   const targets = ['blastoise', 'venusaur', 'butterfree', 'beedrill', '', '']
   let team = targets.map(id => ({
-    detail: {},
+    detail: {
+      moveSlot: ['', '', '', ''],
+    },
     dex: findDex(id)
   }));
   const [{index, members, info}, dispatch] = useReducer(reducer, {
