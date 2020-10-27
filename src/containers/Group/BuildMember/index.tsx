@@ -59,7 +59,8 @@ const BuildMember = () => {
   const [{index, members, info}, dispatch] = useReducer(reducer, {
     index: 0,
     info: {
-      page: ''
+      page: '',
+      addon: '',
     },
     members: team,
   })

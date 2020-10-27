@@ -22,7 +22,14 @@ const DetailCell = ({title, value}) => {
 const DexInfo = ({member, updateMember, switchInfo}) => {
   let { detail, dex } = member;
   if (!dex) return <div className="dex" />;
-  let { level = 50, gender = 0, shiny = 0, gmax = 0 } = detail;
+  let {
+    level = 50,
+    gender = 0,
+    shiny = 0,
+    gmax = 0,
+    ability = '',
+    moveSlot = ['', '', '', '']
+  } = detail;
 
   const info = [{
     title: 'level',
@@ -95,13 +102,16 @@ const DexInfo = ({member, updateMember, switchInfo}) => {
             <Col md={{span: 6}}>
               <div>{dex.types.map(type => <Type type={type} />)}</div>
               <Button className="ability" variant="light" onClick={e => switchInfo({page: 'ability'})}>
-                {detail.ability}
+                {ability}
               </Button>
             </Col>
           </Row>
         </Col>
         <Col md={{span: 3}}>
-          moves
+          {moveSlot.map((move, i) => (
+            <Button className="move" variant="light"
+                    onClick={e => switchInfo({page: 'move', addon: i})}>{move}</Button>
+          ))}
         </Col>
         <Col md={{span: 3}}>
           Stats
