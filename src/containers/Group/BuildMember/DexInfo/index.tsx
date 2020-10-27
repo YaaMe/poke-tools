@@ -108,6 +108,7 @@ const DexInfo = ({member, updateMember, switchInfo}) => {
           </Row>
         </Col>
         <Col md={{span: 3}}>
+          <div className="title">Moves</div>
           {moveSlot.map((move, i) => (
             <Button className="move" variant="light"
                     onClick={e => switchInfo({page: 'move', addon: i})}>{move}</Button>
