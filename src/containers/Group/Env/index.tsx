@@ -1,7 +1,14 @@
-import React, {useEffect, useReducer, useState} from 'react';
-import {PokemonHomeAPI, Season, SeasonInfo, SeasonInfos, SeasonListReqBody} from './api';
+import React, {useEffect, useReducer, useState, Fragment} from 'react';
+import {
+    PokemonHomeAPI, PokemonRankInfo, PokemonRankReqParam,
+    Season,
+    SeasonInfo,
+    SeasonInfos,
+    SeasonListReqBody,
+    TrainerRankInfo,
+    TrainerRankReqParam
+} from './api';
 import {Col, Container, Row} from "react-bootstrap";
-import BuildMember from "../BuildMember";
 
 interface PokemonRankingState {
     seasonID?: string;
@@ -23,23 +30,24 @@ export const PokemonRanking = () => {
         return state;
     }
     const initialSeasonInfo: SeasonInfo = {
-        name: '0', start: '0', end: '0', cnt: -1, rule: 0, season: -1, rst: -1, ts1: -1, ts2: -1, reg: '0'
+        name: '-1', start: '0', end: '0', cnt: -1, rule: 0, season: -1, rst: -1, ts1: -1, ts2: -1, reg: '0'
     }
     const initialSeasonInfos: SeasonInfos = {
-        '10001': initialSeasonInfo
+        '10-11': initialSeasonInfo,
+        '10-12': initialSeasonInfo
     }
     const initialSeason: Season = {
-        '0': initialSeasonInfos
+        '-1': initialSeasonInfos
     }
     const initialPokemonRankingState: PokemonRankingState = {
         seasons: initialSeason,
-        seasonID: '0'
+        seasonID: '-1'
     }
 
     const [ rom, setRom ] = useState<SeasonListReqBody>({soft: "Sw"}); // 版本，Sw 剑， Sh 盾
     const [ season, seasonDispatcher ] = useReducer(seasonReducer, initialPokemonRankingState); // 赛季选择，会下传子组件，内含带api请求
-    const [ mode, setMode ] = useState<string>('single'); // 单双打
-    const [ view, setView ] = useState<string>('trainee'); // 视图：训练师；Pokemon
+    const [ mode, setMode ] = useState<string>('double'); // 单双打
+    const [ view, setView ] = useState<string>('pokemon'); // 视图：训练师；Pokemon
 
     const dispatch = (seasonID: string, seasons: Season) => {
         seasonDispatcher({
@@ -48,10 +56,13 @@ export const PokemonRanking = () => {
             seasons,
         })
     };
-    const getSeasonInfo = (season: PokemonRankingState, mode: string) => {
+    const getSeasonID = (season: PokemonRankingState, mode: string) => {
         const modeNum = mode === 'single' ? 1 : 2;
         const seasonNum = season.seasonID!.length < 2 ? `0${season.seasonID}` : season.seasonID
-        const seasonID = `10${seasonNum}${modeNum}`;
+        return `10${seasonNum}${modeNum}`;
+    }
+    const getSeasonInfo = (season: PokemonRankingState, mode: string) => {
+        const seasonID = getSeasonID(season, mode)
         //      1~11 赛季集合   11 特定赛季序号   10固定位  11 特定赛季序号  模式 rule+1，0→1 单打，1→2 双打   10111 赛季ID
         return season.seasons![season.seasonID!][seasonID]
     }
@@ -119,12 +130,12 @@ export const PokemonRanking = () => {
                 <Col md={{span: 2, offset: 0}}>View: </Col>
                 <Col md={{span: 3, offset: 0}}>
                     <input
-                        value="trainee"
-                        name="trainee"
+                        value="trainer"
+                        name="trainer"
                         type="radio"
-                        checked={view === 'trainee'}
-                        onChange={event => setView('trainee')}
-                    /> Trainee
+                        checked={view === 'trainer'}
+                        onChange={event => setView('trainer')}
+                    /> Trainer
                 </Col>
                 <Col md={{span: 3, offset: 0}}>
                     <input
@@ -139,8 +150,18 @@ export const PokemonRanking = () => {
             </Row>
 
             <Row style={{paddingTop: 10}}>
-                <Col md={{span: 10, offset: 1}}>
-                    <PokemonView season={getSeasonInfo(season, mode)}/>
+                <Col md={{span: 12}}>
+                    <SeasonView season={getSeasonInfo(season, mode)}/>
+                </Col>
+            </Row>
+
+            <Row style={{paddingTop: 10}}>
+                <Col md={{span: 12}}>
+                    {season!.seasonID === '-1' ? <Fragment /> : (
+                        view === 'trainer' ?
+                            <TrainerRankView season={getSeasonInfo(season, mode)} seasonID={getSeasonID(season, mode)}/>
+                            : <PokemonRankView season={getSeasonInfo(season, mode)} seasonID={getSeasonID(season, mode)}/>
+                    )}
                 </Col>
             </Row>
         </Container>
@@ -172,7 +193,7 @@ const PokemonHomeSeasonSelector = (props: SeasonSelectorProps) => {
     }, []);
 
     return <select disabled={!seasons} value={selectedSeason} onChange={(event => seasonDispatch(event.target.value, seasons!))}>
-        <option key='select' value='select'>{seasons ? 'Select season...' : 'Loading data...'}</option>
+        <option key='select' value='-1' disabled>{seasons ? 'Select season...' : 'Loading data...'}</option>
         {Object.keys(seasons ?? {}).reverse().map((v,i) => {
             const k = seasons![v][Object.keys(seasons![v]).pop()!]
             return <option key={i} value={v}>{k.name} {k.start} - {k.end}</option>
@@ -180,16 +201,110 @@ const PokemonHomeSeasonSelector = (props: SeasonSelectorProps) => {
     </select>
 }
 
-class PokemonViewProps {
+class SeasonViewProps {
     season?: SeasonInfo;
 }
 
-const PokemonView = (props: PokemonViewProps) => {
+const SeasonView = (props: SeasonViewProps) => {
     let {name, cnt, start, end, season} = props.season!;
-    return <div>
-        Season {season} Info <br/>
-        Season Name: {name} <br/>
-        Time: {start} ~ {end} <br/>
-        Total Player: {cnt} <br/>
-    </div>
+
+    if (season === -1) return <Fragment />
+
+    return <Fragment>
+        <Row>
+            <Col md={{span: 7}}>
+                Season {season} Info
+            </Col>
+        </Row>
+        <Row>
+            <Col md={{span: 4}} style={{textAlign: 'right'}}>
+                Season Name
+            </Col>
+            <Col md={{span: 8}} style={{textAlign: 'left'}}>
+                {name}
+            </Col>
+        </Row>
+
+        <Row>
+            <Col md={{span: 4}} style={{textAlign: 'right'}}>
+                Time
+            </Col>
+            <Col md={{span: 8}} style={{textAlign: 'left'}}>
+                {start} ~ {end}
+            </Col>
+        </Row>
+
+        <Row>
+            <Col md={{span: 4}} style={{textAlign: 'right'}}>
+                Total Player
+            </Col>
+            <Col md={{span: 8}} style={{textAlign: 'left'}}>
+                {cnt}
+            </Col>
+        </Row>
+    </Fragment>
+}
+
+
+class TrainerRankViewProps extends SeasonViewProps {
+    seasonID!: string;
+}
+
+const TrainerRankView = (props: TrainerRankViewProps) => {
+    let {seasonID, season} = props;
+    let {rst, ts1} = season!;
+
+    const api = new PokemonHomeAPI();
+    const req: TrainerRankReqParam = {
+        mid: seasonID!,
+        rst: rst,
+        ts: ts1,
+        index: 1,
+    }
+    const [ rankList, setRankList ] = useState<TrainerRankInfo[]>([]);
+    const [ error, setError ] = useState<string | undefined>();
+
+    useEffect(() => {
+        api.fetchTrainerRank(req).then(
+            (data) => setRankList(data),
+            (err) => setError(`${err}`)
+        )
+    }, [])
+
+    if (rankList.length === 0) return <p>Loading data...</p>
+
+    return <Fragment>
+        {rankList.map((trainer, i) => <p>{trainer.name}</p>)}
+    </Fragment>
+}
+
+class PokemonRankViewProps extends SeasonViewProps {
+    seasonID!: string;
+}
+
+const PokemonRankView = (props: PokemonRankViewProps) => {
+    let {seasonID, season} = props;
+    let {rst, ts2} = season!;
+
+    const api = new PokemonHomeAPI();
+    const req: PokemonRankReqParam = {
+        mid: seasonID!,
+        rst: rst,
+        ts: ts2,
+    }
+    const [ rankList, setRankList ] = useState<PokemonRankInfo[]>([]);
+    const [ error, setError ] = useState<string | undefined>();
+
+    useEffect(() => {
+        api.fetchPokemonRank(req).then(
+            (data) => setRankList(data),
+            (err) => setError(`${err}`)
+        )
+    }, [])
+
+    if (rankList.length === 0) return <p>Loading data...</p>
+
+    return <Fragment>
+        {rankList.map((pokemon, i) => <p>{pokemon.id}</p>)}
+    </Fragment>
 }
