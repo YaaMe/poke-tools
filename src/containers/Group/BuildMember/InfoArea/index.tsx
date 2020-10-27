@@ -18,7 +18,7 @@ const BuildMember = ({member = {}}) => {
 
 
 
-const InfoArea = ({member, updateMember, info = {page: ''}}) => {
+const InfoArea = ({member = {}, updateMember, info = {page: ''}}) => {
 
   switch (info.page) {
     case 'dex': return <SelectDex onSelect={updateMember} />;
@@ -29,7 +29,7 @@ const InfoArea = ({member, updateMember, info = {page: ''}}) => {
     case 'move': return <SelectMove member={member} onSelect={updateMember} />;
     case 'stats': return <SetStats member={member} onSet={updateMember} />;
     default:
-      if (member) {
+      if (member.dex) {
         // select page, default item
         return <BuildMember member={member} />
       }
