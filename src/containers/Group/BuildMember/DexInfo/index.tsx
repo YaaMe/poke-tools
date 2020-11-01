@@ -123,7 +123,7 @@ const DexInfo = ({member, updateMember, switchInfo}) => {
         </Col>
         <Col md={{span: 3}}>
           <div className="title">Stats</div>
-          <div className="stats">
+          <div className="stats" onClick={e => switchInfo({page: 'stats'})}>
             <StatsBar title="HP" ev={hp} iv={i_hp} effect={
             [effect[0] === 'hp', effect[1] === 'hp']
             }/>
