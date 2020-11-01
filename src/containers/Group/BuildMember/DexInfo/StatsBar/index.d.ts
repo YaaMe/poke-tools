@@ -1,15 +1,26 @@
-import {stats} from "containers/Group/BuildMember/DexInfo/StatsBar/index";
+// declare module StatsBar {
+//     import React from "react";
+//
+//     type stats = 'hp' | 'atk' | 'def' | 'spa' | 'spd' | 'spe';
+//     interface StatsBarProps {
+//         title: string;
+//         ev: number;
+//         iv?: number;
+//         effect?: [] | [stats, stats];
+//     }
+//
+//     export const StatsBar: (props: StatsBarProps) => React.FunctionComponent<StatsBarProps>
+// }
 
-declare namespace StatsBar {
-    export interface StatsBarProps {
-        title: string;
-        ev: number;
-        iv?: number;
-        effect?: [stats?, stats?];
-    }
+type stats = 'hp' | 'atk' | 'def' | 'spa' | 'spd' | 'spe';
 
-    export type stats = 'hp' | 'atk' | 'def' | 'spa' | 'spd' | 'spe';
-
-    export function getStatsBarStyle(ev: number)
-    export function StatsBar ({title, ev, iv, effect}: StatsBarProps)
+interface StatsBarProps {
+    title: string;
+    ev: number;
+    iv?: number;
+    // effect?: [] | [stats, stats];
+    effect?: [] | [boolean, boolean];
 }
+
+declare class StatsBar extends React.Component<StatsBarProps, any> {}
+export default StatsBar
