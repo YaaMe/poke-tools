@@ -4,8 +4,8 @@ type stats = 'hp' | 'atk' | 'def' | 'spa' | 'spd' | 'spe';
 
 interface StatsBarProps {
     title: string;
-    ev: number;
-    iv?: number;
+    base: number;
+    ev?: number;
     // effect?: [] | [stats, stats];
     effect?: [] | [boolean, boolean];
 }
