@@ -115,7 +115,15 @@ const DexInfo = ({member, updateMember, switchInfo}) => {
           ))}
         </Col>
         <Col md={{span: 3}}>
-          Stats
+          <div className="title">Stats</div>
+          <div className="stats">
+            <div>HP</div>
+            <div>Atk</div>
+            <div>Def</div>
+            <div>SpA</div>
+            <div>SpD</div>
+            <div>Spe</div>
+          </div>
         </Col>
       </Row>
     </Fragment>

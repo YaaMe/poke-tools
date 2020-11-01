@@ -49,3 +49,9 @@
     min-width: 78px;
     min-height: 38px;
 }
+
+.stats {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
