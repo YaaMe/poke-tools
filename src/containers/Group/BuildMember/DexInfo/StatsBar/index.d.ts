@@ -11,5 +11,5 @@ declare namespace StatsBar {
     export type stats = 'hp' | 'atk' | 'def' | 'spa' | 'spd' | 'spe';
 
     export function getStatsBarStyle(ev: number)
-    export function StatsBar ({title, ev, iv, effect = []}: StatsBar)
+    export function StatsBar ({title, ev, iv, effect}: StatsBarProps)
 }
