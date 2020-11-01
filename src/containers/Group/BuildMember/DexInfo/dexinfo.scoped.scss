@@ -54,24 +54,4 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-
-    .bar {
-        line-height: 12px;
-        bar {
-            float: left;
-            height: 10px;
-            color: white;
-            font-size: 10px;
-        }
-
-        label {
-            float: left;
-            width: 30%;
-            text-align: left;
-        }
-
-        em {
-            float: right;
-        }
-    }
 }

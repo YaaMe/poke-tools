@@ -7,7 +7,8 @@ import {
   FormControl,
 } from 'react-bootstrap';
 import { Type } from 'components';
-import { getPokeDexImg, toPokeID, getItemIcon } from 'tools/tricks';
+import StatsBar from './StatsBar';
+import { getPokeDexImg, toPokeID, getItemIcon, getStatsBarStyle } from 'tools/tricks';
 import './dexinfo.scoped.scss';
 
 const DetailCell = ({title, value}) => {
@@ -18,34 +19,6 @@ const DetailCell = ({title, value}) => {
     </span>
   )
 }
-
-const getStatsBarStyle = (ev) => {
-  let width = ev * 180 / 540;
-  width = width > 179 ? 179 : Math.floor(width);
-  let color = ev * 180 / 540;
-  color = color > 360 ? 360 : Math.floor(color);
-  return {
-    width: `${width}px`,
-    background: `hsl(${color}, 85%, 45%)`,
-    borderColor: `hsl(${color}, 85%, 45%)`,
-  }
-
-}
-
-const StatsBar = ({title, ev, iv, effect = []}) => {
-  let [plus, minus] = effect;
-  return (
-    <div className="bar">
-      <label>{title}</label>
-      <bar style={getStatsBarStyle(ev)}>{ev}</bar>
-      <em>
-        {iv}
-        {plus && <effect>+</effect>}
-        {minus && <effect>-</effect>}
-      </em>
-    </div>
-  )
-};
 
 const DexInfo = ({member, updateMember, switchInfo}) => {
   let { detail, dex } = member;
