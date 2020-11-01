@@ -2,9 +2,9 @@ import React from 'react';
 
 import { ListGroup } from 'react-bootstrap';
 
-const mapAbility = (ability, member, onSelect) => {
+const mapAbility = (ability, member, onSelect, i) => {
   return (
-    <ListGroup.Item onClick={e => onSelect({
+    <ListGroup.Item key={i} onClick={e => onSelect({
       ...member,
       detail: {...member.detail, ability}
     })}>
@@ -18,7 +18,7 @@ const SelectAbility = ({ member, onSelect }) => {
   let abilities = Object.keys(dex.abilities).map(key => dex.abilities[key]);
   return (
     <ListGroup>
-      {abilities.map(ability => mapAbility(ability, member, onSelect))}
+      {abilities.map((ability, i) => mapAbility(ability, member, onSelect, i))}
     </ListGroup>
   )
 };

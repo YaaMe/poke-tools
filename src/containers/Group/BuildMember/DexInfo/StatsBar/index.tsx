@@ -1,15 +1,6 @@
 import React from 'react';
 import './statsbar.scoped.scss';
 
-type stats = 'hp' | 'atk' | 'def' | 'spa' | 'spd' | 'spe';
-
-export interface StatsBar {
-  title: string;
-  ev: number;
-  iv?: number;
-  effect?: [stats?, stats?];
-}
-
 const getStatsBarStyle = (ev) => {
   let width = ev * 180 / 540;
   width = width > 179 ? 179 : Math.floor(width);
@@ -21,7 +12,6 @@ const getStatsBarStyle = (ev) => {
     borderColor: `hsl(${color}, 85%, 45%)`,
   }
 }
-
 
 const StatsBar = ({title, ev, iv, effect = []}) => {
   let [plus, minus] = effect;
