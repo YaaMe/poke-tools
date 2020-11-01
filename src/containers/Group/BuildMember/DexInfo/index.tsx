@@ -19,17 +19,51 @@ const DetailCell = ({title, value}) => {
   )
 }
 
+const getStatsBarStyle = (ev) => {
+  let width = ev * 180 / 540;
+  width = width > 179 ? 179 : Math.floor(width);
+  let color = ev * 180 / 540;
+  color = color > 360 ? 360 : Math.floor(color);
+  return {
+    width: `${width}px`,
+    background: `hsl(${color}, 85%, 45%)`,
+    borderColor: `hsl(${color}, 85%, 45%)`,
+  }
+
+}
+
+const StatsBar = ({title, ev, iv, effect = []}) => {
+  let [plus, minus] = effect;
+  return (
+    <div className="bar">
+      <label>{title}</label>
+      <bar style={getStatsBarStyle(ev)}>{ev}</bar>
+      <em>
+        {iv}
+        {plus && <effect>+</effect>}
+        {minus && <effect>-</effect>}
+      </em>
+    </div>
+  )
+};
+
 const DexInfo = ({member, updateMember, switchInfo}) => {
   let { detail, dex } = member;
   if (!dex) return <div className="dex" />;
+  const { baseStats } = dex;
+
   let {
     level = 50,
     gender = 0,
     shiny = 0,
     gmax = 0,
     ability = '',
-    moveSlot = ['', '', '', '']
+    moveSlot = ['', '', '', ''],
+    ivs = {},
   } = detail;
+
+  const { hp, atk, def, spa, spd, spe } = baseStats;
+  const { i_hp, i_atk, i_def, i_spa, i_spd, i_spe, effect = ['atk', 'spd'] } = ivs;
 
   const info = [{
     title: 'level',
@@ -117,12 +151,24 @@ const DexInfo = ({member, updateMember, switchInfo}) => {
         <Col md={{span: 3}}>
           <div className="title">Stats</div>
           <div className="stats">
-            <div>HP</div>
-            <div>Atk</div>
-            <div>Def</div>
-            <div>SpA</div>
-            <div>SpD</div>
-            <div>Spe</div>
+            <StatsBar title="HP" ev={hp} iv={i_hp} effect={
+            [effect[0] === 'hp', effect[1] === 'hp']
+            }/>
+            <StatsBar title="Atk" ev={atk} iv={i_atk} effect={
+            [effect[0] === 'atk', effect[1] === 'atk']
+            }/>
+            <StatsBar title="Def" ev={def} iv={i_def} effect={
+            [effect[0] === 'def', effect[1] === 'def']
+            }/>
+            <StatsBar title="SpA" ev={spa} iv={i_spa} effect={
+            [effect[0] === 'spa', effect[1] === 'spa']
+            }/>
+            <StatsBar title="SpD" ev={spd} iv={i_spd} effect={
+            [effect[0] === 'spd', effect[1] === 'spd']
+            }/>
+            <StatsBar title="Spe" ev={spe} iv={i_spe} effect={
+            [effect[0] === 'spe', effect[1] === 'spe']
+            }/>
           </div>
         </Col>
       </Row>

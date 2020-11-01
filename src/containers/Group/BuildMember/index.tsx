@@ -26,7 +26,7 @@ const reducer = function(state, action) {
       return {...state, info: action.data };
     default: return state;
   }
-  return state
+  return state;
 }
 const mapMember = (member, i, onSelect) => {
   if (member) {
