@@ -1,5 +1,5 @@
 import { BattlePokedex } from './data/pokedex';
-import { swsh_no } from './dex_filter';
+import { swsh_no, crown_tundra } from './dex_filter';
 
 // TODO -Gmax -Mega
 export const findDex = (id: any) => {
@@ -20,5 +20,5 @@ export const getPartDex = (filter, dex) => {
 }
 
 export const getSwShDex = () => {
-    return getPartDex(dex => swsh_no.includes(dex.num))
+    return getPartDex(dex => swsh_no.concat(crown_tundra).includes(dex.num))
 }
