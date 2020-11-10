@@ -10,6 +10,7 @@ const pushMove = (moveSlot, move) => {
 }
 
 const mapMove = (move, member, onSelect, slot = 0) => {
+  console.log(member);
   return (
     <ListGroup.Item onClick={e => {
       let moveSlot = [...member.detail.moveSlot];

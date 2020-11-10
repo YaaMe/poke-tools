@@ -2,10 +2,9 @@ import React from 'react';
 import './statsbar.scoped.scss';
 
 const getStatsBarStyle = (base) => {
-    let width = base * 180 / 540;
-    width = width > 179 ? 179 : Math.floor(width);
-    let color = base * 180 / 540;
-    color = color > 360 ? 360 : Math.floor(color);
+  let width =Math.floor(base * 100 / 255);
+  let color = base * 180 / 540;
+  color = color > 360 ? 360 : Math.floor(color);
     let style = {
         width: `${width}px`,
         background: `hsl(${color}, 85%, 45%)`,

@@ -12,7 +12,7 @@ import { Type } from 'components';
 import { findDex, getSwShDex } from 'tools/dex';
 import { BattlePokedex } from 'res/showdown/data/pokedex';
 import { Dex } from 'res/showdown/sim/dex';
-import { getPokeIcon, toPokeID } from 'tools/tricks';
+import { getPokeIcon, toPokeID, initMember } from 'tools/tricks';
 import { type_order } from 'tools/constants';
 
 
@@ -28,7 +28,7 @@ const mapDexSummary = (pokemon, onSelect) => {
   const { hp, atk, def, spa, spd, spe } = pokemon.baseStats;
 
   return (
-    <tr onClick={e => onSelect({dex: pokemon, detail: {}})}>
+    <tr onClick={e => onSelect(initMember(pokemon))}>
       <td style={{display: 'flex'}}><span style={{
         display: 'inline-block',
         height: '30px',

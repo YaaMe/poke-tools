@@ -5,10 +5,8 @@ import {
 } from 'react-bootstrap';
 import InfoArea from './InfoArea';
 import DexInfo from './DexInfo';
-import { BattlePokedex } from 'tools/data/pokedex';
 import { findDex } from 'tools/dex';
-import { Dex } from 'tools/sim/dex';
-import { getPokeIcon, toPokeID } from 'tools/tricks';
+import { getPokeIcon, toPokeID, initMember } from 'tools/tricks';
 
 const reducer = function(state, action) {
   switch (action.type) {
@@ -28,6 +26,7 @@ const reducer = function(state, action) {
   }
   return state;
 }
+
 const mapMember = (member, i, onSelect) => {
   if (member) {
     const id = toPokeID(member.name);
@@ -52,12 +51,7 @@ const BuildMember = () => {
   const target = 'blastoise';
   // console.log(BattlePokedex[target])
   const targets = ['blastoise', 'venusaur', 'butterfree', 'beedrill', '', '']
-  let team = targets.map(id => ({
-    detail: {
-      moveSlot: ['', '', '', ''],
-    },
-    dex: findDex(id)
-  }));
+  let team = targets.map(id => initMember(findDex(id)));
   const [{index, members, info}, dispatch] = useReducer(reducer, {
     index: 0,
     info: {

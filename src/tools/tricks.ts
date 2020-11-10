@@ -5,6 +5,17 @@ import { Items as BattleItems } from 'res/showdown/data/items';
 
 const toID = Dex.toID;
 
+export const initMember = dex => ({
+    dex,
+    detail: {
+        moveSlot: ['', '', '', ''],
+        ability: '',
+        item: '',
+        ivs: [],
+        evs: [],
+    }
+})
+
 export const genId = () => uuid();
 export const packId = obj => ({...obj, uuid: uuid() })
 

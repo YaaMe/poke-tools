@@ -2,3 +2,13 @@
     text-align: center;
 }
 
+.bar {
+    .base {
+        text-align: right;
+    }
+    bar {
+        float: left;
+        height: 20px;
+        display: inline-block;
+    }
+}
