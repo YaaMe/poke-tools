@@ -10,8 +10,8 @@ import {
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Type } from 'components';
 import { findDex, getSwShDex } from 'tools/dex';
-import { BattlePokedex } from 'tools/data/pokedex';
-import { Dex } from 'tools/sim/dex';
+import { BattlePokedex } from 'res/showdown/data/pokedex';
+import { Dex } from 'res/showdown/sim/dex';
 import { getPokeIcon, toPokeID } from 'tools/tricks';
 import { type_order } from 'tools/constants';
 

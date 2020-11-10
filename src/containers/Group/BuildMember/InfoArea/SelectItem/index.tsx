@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
-import { BattleItems } from 'tools/data/items';
+import { Items as BattleItems } from 'res/showdown/data/items';
 import { getItemIcon } from 'tools/tricks';
 import { toPokeID } from 'tools/tricks';
 

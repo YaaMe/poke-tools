@@ -1,9 +1,9 @@
 import { v4 as uuid } from 'uuid';
 import { resourcePrefix } from './constants';
-import { Dex } from './sim/dex';
-import { BattleItems } from './data/items';
+import { Dex } from 'res/showdown/sim/dex';
+import { Items as BattleItems } from 'res/showdown/data/items';
 
-const toID = Dex.getId;
+const toID = Dex.toID;
 
 export const genId = () => uuid();
 export const packId = obj => ({...obj, uuid: uuid() })
@@ -49,7 +49,7 @@ export const getPokeDexImg = (name, num) => {
     return `url(${resourcePrefix}sprites/dex/${name}.png) no-repeat`
 }
 
-export const toPokeID = Dex.getId;
+export const toPokeID = toID;
 
 // getTeambuilderSprite(pokemon: any, gen: number = 0) {
 // 		if (!pokemon) return '';

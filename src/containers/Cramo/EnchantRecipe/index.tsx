@@ -8,7 +8,7 @@ import {
   Button,
   ProgressBar,
 } from 'react-bootstrap';
-import cram_point from 'tools/data/cram_point';
+import cram_point from 'res/cramo/cram_point';
 import { packId } from 'tools/tricks';
 import { type_order } from 'tools/constants';
 

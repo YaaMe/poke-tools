@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { toPokeID } from 'tools/tricks';
-import { BattleLearnsets } from 'tools/data/learnsets';
+import { Learnsets as BattleLearnsets } from 'res/showdown/data/learnsets';
 
 const pushMove = (moveSlot, move) => {
   if (moveSlot.length < 4) {

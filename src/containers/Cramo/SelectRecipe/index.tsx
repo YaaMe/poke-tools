@@ -14,7 +14,7 @@ const md = {
   offset: 4
 }
 
-import cram_table from 'tools/data/cram_table';
+import cram_table from 'res/cramo/cram_table';
 import { type_order } from 'tools/constants';
 
 let recipes = [];

@@ -1,4 +1,4 @@
-import { BattlePokedex } from './data/pokedex';
+import { Pokedex as BattlePokedex } from 'res/showdown/data/pokedex';
 import { swsh_no, crown_tundra } from './dex_filter';
 
 // TODO -Gmax -Mega
