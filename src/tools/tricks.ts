@@ -8,9 +8,14 @@ const toID = Dex.toID;
 export const initMember = dex => ({
     dex,
     detail: {
-        moveSlot: ['', '', '', ''],
+        level: 50,
+        gender: 0,
+        shiny: 0,
+        gmax: 0,
         ability: '',
+        moveSlot: ['', '', '', ''],
         item: '',
+        native: [],
         ivs: [],
         evs: [0, 0, 0, 0, 0, 0],
     }

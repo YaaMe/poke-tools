@@ -14,8 +14,8 @@ const getStatsBarStyle = (base) => {
     return base < 50 ? {'text-align': 'right', color: 'black', ...style} : style
 }
 
-const StatsBar = ({title, base, ev, effect = []}) => {
-  let [plus, minus] = effect;
+const StatsBar = ({title, base, ev, nativeEffect = []}) => {
+  let [plus, minus] = nativeEffect;
   return (
     <div className="bar">
       <label>{title}</label>

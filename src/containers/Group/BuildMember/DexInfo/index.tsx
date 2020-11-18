@@ -32,11 +32,14 @@ const DexInfo = ({member, updateMember, switchInfo}) => {
     gmax = 0,
     ability = '',
     moveSlot = ['', '', '', ''],
-    ivs = {},
+    evs = [],
+    ivs = [],
+    native = []
   } = detail;
 
+  const effect = native;
   const { hp, atk, def, spa, spd, spe } = baseStats;
-  const { e_hp, e_atk, e_def, e_spa, e_spd, e_spe, effect = [] } = ivs;
+  const [ e_hp, e_atk, e_def, e_spa, e_spd, e_spe ] = evs;
 
   const info = [{
     title: 'level',
@@ -124,23 +127,23 @@ const DexInfo = ({member, updateMember, switchInfo}) => {
         <Col md={{span: 3}}>
           <div className="title">Stats</div>
           <div className="stats" onClick={e => switchInfo({page: 'stats'})}>
-            <StatsBar title="HP" base={hp} ev={e_hp} effect={
-            [effect[0] === 'hp', effect[1] === 'hp']
+            <StatsBar title="HP" base={hp} ev={e_hp} nativeEffect={
+            [native[0] === 'hp', native[1] === 'hp']
             }/>
-            <StatsBar title="Atk" base={atk} ev={e_atk} effect={
-            [effect[0] === 'atk', effect[1] === 'atk']
+            <StatsBar title="Atk" base={atk} ev={e_atk} nativeEffect={
+            [native[0] === 'atk', native[1] === 'atk']
             }/>
-            <StatsBar title="Def" base={def} ev={e_def} effect={
-            [effect[0] === 'def', effect[1] === 'def']
+            <StatsBar title="Def" base={def} ev={e_def} nativeEffect={
+            [native[0] === 'def', effect[1] === 'def']
             }/>
-            <StatsBar title="SpA" base={spa} ev={e_spa} effect={
-            [effect[0] === 'spa', effect[1] === 'spa']
+            <StatsBar title="SpA" base={spa} ev={e_spa} nativeEffect={
+            [native[0] === 'spa', native[1] === 'spa']
             }/>
-            <StatsBar title="SpD" base={spd} ev={e_spd} effect={
-            [effect[0] === 'spd', effect[1] === 'spd']
+            <StatsBar title="SpD" base={spd} ev={e_spd} nativeEffect={
+            [native[0] === 'spd', native[1] === 'spd']
             }/>
-            <StatsBar title="Spe" base={spe} ev={e_spe} effect={
-            [effect[0] === 'spe', effect[1] === 'spe']
+            <StatsBar title="Spe" base={spe} ev={e_spe} nativeEffect={
+            [native[0] === 'spe', native[1] === 'spe']
             }/>
           </div>
         </Col>

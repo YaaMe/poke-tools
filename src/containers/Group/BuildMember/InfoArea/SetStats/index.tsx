@@ -31,15 +31,27 @@ const BaseArea = ({title, base}) => {
   )
 };
 
-const EVArea = ({id, ev, updateEV}) => {
-  let changeEV = e => updateEV(e.target.value);
+const solveSymbol = (value) => {
+  let v = String(value);
+  let withSymbol = v.endsWith('-') || v.endsWith('+');
+  let symbol = '';
+  if (withSymbol) symbol = value[value.length - 1];
+  if (symbol) value = Number(value.replace('-', '').replace('+', ''));
+  return [value, symbol];
+};
+
+const EVArea = ({id, ev, nativeEffect, updateEV}) => {
+  let changeEV = e => {
+    let [value, symbol] = solveSymbol(e.target.value);
+    updateEV(value, symbol)
+  };
   return (
     <Row>
       <Col md={{span: 2}}>
         <FormControl
           controlid={id}
           onChange={changeEV}
-          value={ev}
+          value={ev + nativeEffect}
         />
       </Col>
       <Col md={{span: 10}}>
@@ -66,7 +78,7 @@ const Result = () => {
 
 const stats = ['HP', 'Atk', 'Def', 'SpA', 'SpD', 'Spe'];
 
-const Stats = ({id, title, base, ev, updateEV}) => {
+const Stats = ({id, title, base, ev, nativeEffect, updateEV}) => {
   return (
     <Row>
       <Col md={{span: 3}}>
@@ -77,7 +89,7 @@ const Stats = ({id, title, base, ev, updateEV}) => {
         </div>
       </Col>
       <Col md={{span: 7}}>
-        <EVArea id={id} ev={ev} updateEV={updateEV} />
+        <EVArea id={id} ev={ev} nativeEffect={nativeEffect} updateEV={updateEV} />
       </Col>
       <Col md={{span: 1}}>
         <IVArea/>
@@ -92,17 +104,28 @@ const Stats = ({id, title, base, ev, updateEV}) => {
 const mapStats = (attr, {dex, detail}, onUpdateMember) => {
   const { baseStats } = dex;
   const {
+    native,
     evs = [0,0,0,0,0,0]
   } = detail;
   let id = attr.toLowerCase();
   let index = stats.indexOf(attr);
   let ev = evs[index];
-  const updateEV = (ev) => {
+  const updateEV = (ev, symbol) => {
     evs[index] = ev;
-    onUpdateMember({dex, detail: {...detail, evs: [...evs]}})
+    let native = [...detail.native];
+    if (symbol === '+') native[0] = id;
+    if (symbol === '-') native[1] = id;
+    onUpdateMember({dex, detail: {
+      ...detail,
+      evs: [...evs], native
+    }})
   };
   const updateIV = () => {};
-  return <Stats id={id} title={attr} base={baseStats[id]} ev={ev}
+  let nativeEffect = '';
+  if (native[0] === id) nativeEffect = '+';
+  if (native[1] === id) nativeEffect = '-';
+  return <Stats id={id} title={attr} base={baseStats[id]}
+                ev={ev} nativeEffect={nativeEffect}
                 updateEV={updateEV} updateIV={updateIV} />
 }
 

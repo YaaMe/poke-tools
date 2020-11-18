@@ -6,8 +6,8 @@ interface StatsBarProps {
     title: string;
     base: number;
     ev?: number;
-    // effect?: [] | [stats, stats];
-    effect?: [] | [boolean, boolean];
+    // nativeEffect?: [] | [stats, stats];
+    nativeEffect?: [] | [boolean, boolean];
 }
 
 declare function StatsBar(props: StatsBarProps): React.FunctionComponent<StatsBarProps, any>
