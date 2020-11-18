@@ -31,20 +31,23 @@ const BaseArea = ({title, base}) => {
   )
 };
 
-const EVArea = ({id}) => {
+const EVArea = ({id, ev, updateEV}) => {
+  let changeEV = e => updateEV(e.target.value);
   return (
     <Row>
       <Col md={{span: 2}}>
         <FormControl
           controlid={id}
-          onChange={e => {}}
+          onChange={changeEV}
+          value={ev}
         />
       </Col>
       <Col md={{span: 10}}>
         <FormControl
           type="range"
           max={252}
-          value={252}
+          value={ev}
+          onChange={changeEV}
         />
       </Col>
     </Row>
@@ -63,7 +66,7 @@ const Result = () => {
 
 const stats = ['HP', 'Atk', 'Def', 'SpA', 'SpD', 'Spe'];
 
-const Stats = ({id, title, base}) => {
+const Stats = ({id, title, base, ev, updateEV}) => {
   return (
     <Row>
       <Col md={{span: 3}}>
@@ -74,7 +77,7 @@ const Stats = ({id, title, base}) => {
         </div>
       </Col>
       <Col md={{span: 7}}>
-        <EVArea id={id}/>
+        <EVArea id={id} ev={ev} updateEV={updateEV} />
       </Col>
       <Col md={{span: 1}}>
         <IVArea/>
@@ -86,14 +89,25 @@ const Stats = ({id, title, base}) => {
   )
 }
 
-const mapStats = (attr, {dex, details}) => {
+const mapStats = (attr, {dex, detail}, onUpdateMember) => {
   const { baseStats } = dex;
+  const {
+    evs = [0,0,0,0,0,0]
+  } = detail;
   let id = attr.toLowerCase();
-  return <Stats id={id} title={attr} base={baseStats[id]} />
+  let index = stats.indexOf(attr);
+  let ev = evs[index];
+  const updateEV = (ev) => {
+    evs[index] = ev;
+    onUpdateMember({dex, detail: {...detail, evs: [...evs]}})
+  };
+  const updateIV = () => {};
+  return <Stats id={id} title={attr} base={baseStats[id]} ev={ev}
+                updateEV={updateEV} updateIV={updateIV} />
 }
 
-const SetStats = ({ member }) => {
-  const { dex, details } = member;
+const SetStats = ({ member, onUpdateMember }) => {
+  const { dex, detail } = member;
   const { baseStats } = dex;
   return (
     <div>
@@ -112,7 +126,7 @@ const SetStats = ({ member }) => {
         <Col md={{span: 1}}>
         </Col>
       </Row>
-      {stats.map(attr => mapStats(attr, member))}
+      {stats.map(attr => mapStats(attr, member, onUpdateMember))}
     </div>
   )
 }

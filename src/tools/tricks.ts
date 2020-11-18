@@ -12,7 +12,7 @@ export const initMember = dex => ({
         ability: '',
         item: '',
         ivs: [],
-        evs: [],
+        evs: [0, 0, 0, 0, 0, 0],
     }
 })
 

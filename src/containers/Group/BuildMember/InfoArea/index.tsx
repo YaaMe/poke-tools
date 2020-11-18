@@ -27,7 +27,7 @@ const InfoArea = ({member = {}, updateMember, info = {page: ''}}) => {
     case 'item': return <SelectItem member={member} onSelect={updateMember} />;
     case 'ability': return <SelectAbility member={member} onSelect={updateMember} />;
     case 'move': return <SelectMove member={member} onSelect={updateMember} slot={info.addon} />;
-    case 'stats': return <SetStats member={member} onSet={updateMember} />;
+    case 'stats': return <SetStats member={member} onUpdateMember={updateMember} />;
     default:
       if (member.dex) {
         // select page, default item

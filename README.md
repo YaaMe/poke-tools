@@ -12,13 +12,10 @@
 
 ###### dexinfo
 
-
-+ ability => Input
-+ moves => list
 + stats => cal
 
 ###### infoarea
-+ item Input => search filter
++ stats native
 
 
 ##### anlyz_part
