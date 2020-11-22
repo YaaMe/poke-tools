@@ -1,3 +1,4 @@
+import React, { Fragment, useEffect, useState } from "react";
 import { PokemonRankViewProps } from "./types";
 import { PokemonHomeAPI, PokemonRankInfo, PokemonRankReqParam } from "../../../../API/PokemonHome";
 import React, { Fragment, useEffect, useState } from "react";
@@ -20,7 +21,7 @@ const PokemonRankView = (props: PokemonRankViewProps) => {
             (data) => setRankList(data),
             (err) => setError(`${err}`)
         )
-    }, [])
+    }, [seasonID])
 
     if (rankList.length === 0) return <p>Loading data...</p>
 
