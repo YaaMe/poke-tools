@@ -122,13 +122,13 @@ export class PokemonHomeAPI {
     async fetchTrainerRank(param: TrainerRankReqParam): Promise<TrainerRankInfo[]> {
         const {mid, rst, ts, index} = param;
         // return this.fetchResource(`ranking/${mid}/${rst}/${ts}/traner-${index}`);
-        return this.fetchRemote(`resource/ranking/${mid}/${rst}/${ts}/traner-${index}`);
+        return this.fetchRemote(`resource/battledata/ranking/${mid}/${rst}/${ts}/traner-${index}`);
     }
 
     // 获取赛季 Pokemon 排名信息
     async fetchPokemonRank(param: PokemonRankReqParam): Promise<PokemonRankInfo[]> {
         const {mid, rst, ts} = param;
         // return this.fetchResource(`ranking/${mid}/${rst}/${ts}/pokemon`);
-        return this.fetchRemote(`resource/ranking/${mid}/${rst}/${ts}/pokemon`);
+        return this.fetchRemote(`resource/battledata/ranking/${mid}/${rst}/${ts}/pokemon`);
     }
 }
