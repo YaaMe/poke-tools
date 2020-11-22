@@ -6,6 +6,7 @@ import {PokemonRankInfo, TrainerRankInfo} from "./Interfaces";
 const LOCAL = 'http://localhost:5000/'
 const RESOURCE_BASE = process.env.REACT_APP_POKEHOME_RESOURCE_BASE ?? LOCAL + 'https://resource.pokemon-home.com/battledata';
 const API_BASE = process.env.REACT_APP_POKEHOME_API_BASE ?? LOCAL + 'https://api.battle.pokemon-home.com'
+const REMOTE_BASE = 'https://pokemon.yaame.dev'
 
 export class PokemonHomeAPI {
     defaultHeaders = {
@@ -38,6 +39,27 @@ export class PokemonHomeAPI {
         this._abort = controller.abort.bind(controller);
 
         return fetch(uri, init);
+    }
+
+    async fetchRemote(uri: string, body?: any, init?: RequestInit & { dontThrowErrorOn4XX: boolean}) {
+        const response = await this.fetch(`${REMOTE_BASE}/${uri}`, body, init);
+
+        let json: any;
+        let failedReason = "";
+        try {
+            json = await response.json();
+        } catch (e) {
+            failedReason = response.statusText;
+        }
+
+        if (json) {
+            try {
+                failedReason = json.detail;
+            } catch (e) {
+            }
+        }
+
+        return json;
     }
 
     async fetchAPI(uri: string, body?: any, init?: RequestInit & { dontThrowErrorOn4XX?: boolean }) {
@@ -84,13 +106,13 @@ export class PokemonHomeAPI {
 
     // 获取赛季列表
     async fetchSeasonList(rom: SeasonListReqBody): Promise<SeasonListResponse> {
-        return this.fetchAPI(`cbd/competition/rankmatch/list`, rom, {
+        // return this.fetchAPI(`cbd/competition/rankmatch/list`, rom, {
+        return this.fetchRemote(`api/cbd/competition/rankmatch/list`, rom, {
             dontThrowErrorOn4XX: true,
             headers: {
                 countrycode: '304', // Japan
                 langcode: '9', // zh-CN
-                Authorization: 'Bearer',
-                Origin: 'https://resource.pokemon-home.com',
+                Authorization: 'Bearer'
             },
             method: 'POST',
         })
@@ -99,12 +121,14 @@ export class PokemonHomeAPI {
     // 获取赛季训练家排名信息
     async fetchTrainerRank(param: TrainerRankReqParam): Promise<TrainerRankInfo[]> {
         const {mid, rst, ts, index} = param;
-        return this.fetchResource(`ranking/${mid}/${rst}/${ts}/traner-${index}`);
+        // return this.fetchResource(`ranking/${mid}/${rst}/${ts}/traner-${index}`);
+        return this.fetchRemote(`resource/ranking/${mid}/${rst}/${ts}/traner-${index}`);
     }
 
     // 获取赛季 Pokemon 排名信息
     async fetchPokemonRank(param: PokemonRankReqParam): Promise<PokemonRankInfo[]> {
         const {mid, rst, ts} = param;
-        return this.fetchResource(`ranking/${mid}/${rst}/${ts}/pokemon`);
+        // return this.fetchResource(`ranking/${mid}/${rst}/${ts}/pokemon`);
+        return this.fetchRemote(`resource/ranking/${mid}/${rst}/${ts}/pokemon`);
     }
 }
